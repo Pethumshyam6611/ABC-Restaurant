@@ -13,7 +13,7 @@
     <div class="container">
         <h2>Edit Menu Item</h2>
 
-        <form action="menu" method="post">
+        <form action="menu?action=update" method="post"  enctype="multipart/form-data">
             <input type="hidden" name="action" value="update">
             <input type="hidden" name="id" value="${menu.productID}">
             
@@ -39,7 +39,7 @@
             
             <div class="form-group">
                 <label for="image">Image URL</label>
-                <input type="text" class="form-control" id="image" name="image" value="${menu.image}" required>
+                <input type="file" class="form-control" id="image" name="image" value="${menu.image}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Update Menu Item</button>
