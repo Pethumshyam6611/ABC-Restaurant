@@ -15,10 +15,12 @@ import javax.servlet.http.Part;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 @WebServlet("/menu")
 @MultipartConfig
@@ -31,6 +33,24 @@ public class MenuController extends HttpServlet {
 	public void init() throws ServletException {
         menuService = MenuService.getInstance();
     }
+	
+	private String getUploadPath() {
+        Properties properties = new Properties();
+        try (InputStream input = getServletContext().getResourceAsStream("/WEB-INF/classes/MenuItemFolderPath.properties")) {
+            if (input == null) {
+                throw new RuntimeException("Sorry, unable to find config.properties");
+            }
+            properties.load(input);
+            return properties.getProperty("image.upload.path");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException("Error reading config.properties", ex);
+        }
+    }
+	
+	
+	
+	
 
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        String action = request.getParameter("action");
@@ -83,54 +103,47 @@ public class MenuController extends HttpServlet {
 		
 		
 		private void addMenu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    // Retrieve form parameters
-		    String name = request.getParameter("name");
-		    String description = request.getParameter("description");
-		    double price = Double.parseDouble(request.getParameter("price"));
-		    String category = request.getParameter("category");
-		    
-		    // Handling file upload
-		    Part imagePart = request.getPart("image");
-		    String imageUrl = null;
-		    
-		    if (imagePart != null && imagePart.getSize() > 0) {
-		        // Get the original file name
-		        String imageFileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
-		        
-		        // Define the path for saving the image files
-		        String uploadPath = getServletContext().getRealPath("/images");
-		        File uploadDir = new File(uploadPath);
-		        if (!uploadDir.exists()) {
-		            uploadDir.mkdirs(); // Create the directory if it doesn't exist
-		        }
-		        
-		        // Save the uploaded file
-		        try {
-		            File file = new File(uploadPath + File.separator + imageFileName);
-		            imagePart.write(file.getAbsolutePath());
-		            imageUrl = "images/" + imageFileName; // Save URL relative to the web root
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		            throw new ServletException("File upload failed.");
-		        }
-		    }
-		    
-		    // Create and populate Menu object
-		    Menu menu = new Menu();
-		    menu.setProductName(name);
-		    menu.setDescription(description);
-		    menu.setPrice(price);
-		    menu.setCategory(category);
-		    menu.setImage(imageUrl); // Set the image URL or path
-		    
-		    // Add Menu to the service
-		    menuService.addMenu(menu);
-		    
-		    // Redirect to list page
-		    response.sendRedirect("menu?action=list");
-		}
+	        String productName = request.getParameter("productName");
+	        String description = request.getParameter("description");
+	        double price = Double.parseDouble(request.getParameter("price"));
+	        String category = request.getParameter("category");
+	        
+	        Part imagePart = request.getPart("image");
+	        String imageUrl = null;
+	        
+	        if (imagePart != null && imagePart.getSize() > 0) {
+	            String imageFileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
+	 
+	            String uploadPath = getUploadPath();
+	            File uploadDir = new File(uploadPath);
+	            if (!uploadDir.exists()) {
+	                uploadDir.mkdirs();
+	            }
+	 
+	            try {
+	                File file = new File(uploadPath + File.separator + imageFileName);
+	                imagePart.write(file.getAbsolutePath());
+	                imageUrl = "images/" + imageFileName;
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	                throw new ServletException("File upload failed.");
+	            }
+	        }
+	 
+	        Menu menu = new Menu();
+	        menu.setProductName(productName);
+	        menu.setDescription(description);
+	        menu.setPrice(price);
+	        menu.setCategory(category);
+	        menu.setImage(imageUrl);
+	 
+	 
+	        menuService.addMenu(menu);
+	 
+	        response.sendRedirect("menu?action=list");
+	    }
 	
-	 private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    String id = request.getParameter("id");
 		    
 		    if (id != null && !id.trim().isEmpty()) {
@@ -143,129 +156,167 @@ public class MenuController extends HttpServlet {
 		                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/editMenu.jsp");
 		                dispatcher.forward(request, response);
 		            } else {
-		                // Handle case where the menu ID does not exist in the database
+		                // Handle case where the menu ID does not exist
 		                request.setAttribute("errorMessage", "Menu item not found.");
-		                request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+		                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+		                dispatcher.forward(request, response);
 		            }
 		        } catch (NumberFormatException e) {
-		            // Handle invalid ID format
+		            
 		            request.setAttribute("errorMessage", "Invalid menu ID format.");
-		            request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+		            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+		            dispatcher.forward(request, response);
 		        } catch (Exception e) {
-		            // Handle any other exceptions
+		           
 		            request.setAttribute("errorMessage", "Error: " + e.getMessage());
-		            request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+		            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+		            dispatcher.forward(request, response);
 		        }
 		    } else {
-		        // Redirect to the list page if ID is missing
+		        
 		        response.sendRedirect("menu?action=list");
 		    }
 		}
-
-	 
-	 
-	 private void updateMenu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    String id = request.getParameter("id");
-		    String category = request.getParameter("category");
-		    String productName = request.getParameter("productName");
+		private void updateMenu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		    // Retrieve menu item details from request parameters
+		    int menuId = Integer.parseInt(request.getParameter("id"));
+		    String name = request.getParameter("name");
 		    String description = request.getParameter("description");
 		    double price = Double.parseDouble(request.getParameter("price"));
-		    String imageUrl = request.getParameter("image"); // This is the existing image URL
+		    String category = request.getParameter("category");
 
-		    // Handling file upload
+		    // Retrieve the image part from the request
 		    Part imagePart = request.getPart("image");
+		    String imageUrl = null;  // Default image URL to null
+
+		    // Fetch the existing menu item
+		    Menu existingMenu = menuService.getMenuById(menuId);
+
+		    if (existingMenu == null) {
+		        // Handle case where menu item does not exist
+		        request.setAttribute("errorMessage", "Menu item not found.");
+		        request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+		        return;
+		    }
+
+		    // Get the old image URL
+		    String oldImageUrl = existingMenu.getImage();
+
+		    // Define the upload directory
+		    String uploadPath = getUploadPath();
+		    File uploadDir = new File(uploadPath);
+
+		    // Ensure the upload directory exists
+		    if (!uploadDir.exists()) {
+		        uploadDir.mkdirs();
+		    }
+
 		    if (imagePart != null && imagePart.getSize() > 0) {
-		        // Get the original file name
+		        // New image is being uploaded
 		        String imageFileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
+		        File newImageFile = new File(uploadPath + File.separator + imageFileName);
 
-		        // Define the path for saving the image files
-		        String uploadPath = getServletContext().getRealPath("/images");
-		        File uploadDir = new File(uploadPath);
-		        if (!uploadDir.exists()) {
-		            uploadDir.mkdirs(); // Create the directory if it doesn't exist
-		        }
-
-		        // Save the uploaded file
 		        try {
-		            File file = new File(uploadPath + File.separator + imageFileName);
-		            imagePart.write(file.getAbsolutePath());
-		            imageUrl = "images/" + imageFileName; // Save URL relative to the web root
+		            // Save the new image file
+		            imagePart.write(newImageFile.getAbsolutePath());
+		            imageUrl = "images/" + imageFileName;  // Set the new image URL
+		            System.out.println("Uploaded new image to: " + newImageFile.getAbsolutePath());
 		        } catch (IOException e) {
 		            e.printStackTrace();
 		            throw new ServletException("File upload failed.");
 		        }
-		    }
 
-		    if (id != null) {
-		        try {
-		            int menuId = Integer.parseInt(id);
-		            Menu menu = new Menu();
-		            menu.setProductID(menuId);
-		            menu.setCategory(category);
-		            menu.setProductName(productName);
-		            menu.setDescription(description);
-		            menu.setPrice(price);
-		            menu.setImage(imageUrl); // Update image URL or path
-
-		            menuService.updateMenu(menu);
-		            response.sendRedirect("menu?action=list");
-		        } catch (NumberFormatException e) {
-		            request.setAttribute("errorMessage", "Invalid menu ID format.");
-		            request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
-		        } catch (Exception e) {
-		            request.setAttribute("errorMessage", "Error: " + e.getMessage());
-		            request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+		        // Delete the old image file if it exists
+		        if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
+		            File oldImageFile = new File(uploadPath + File.separator + Paths.get(oldImageUrl).getFileName());
+		            if (oldImageFile.exists()) {
+		                boolean deleted = oldImageFile.delete();
+		                if (!deleted) {
+		                    System.err.println("Failed to delete the old image file: " + oldImageFile.getAbsolutePath());
+		                } else {
+		                    System.out.println("Successfully deleted old image file: " + oldImageFile.getAbsolutePath());
+		                }
+		            } else {
+		                System.out.println("Old image file does not exist: " + oldImageFile.getAbsolutePath());
+		            }
 		        }
 		    } else {
+		        // No new image is uploaded, retain the old image URL
+		        imageUrl = oldImageUrl;
+		    }
+
+		    // Update the menu item with the new image URL
+		    Menu updatedMenu = new Menu();
+		    updatedMenu.setProductID(menuId);
+		    updatedMenu.setCategory(category);
+		    updatedMenu.setProductName(name);
+		    updatedMenu.setDescription(description);
+		    updatedMenu.setPrice(price);
+		    updatedMenu.setImage(imageUrl);
+
+		    try {
+		        menuService.updateMenu(updatedMenu);
 		        response.sendRedirect("menu?action=list");
+		    } catch (Exception e) {
+		        request.setAttribute("errorMessage", "Error updating menu: " + e.getMessage());
+		        request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
 		    }
 		}
+
+
+
+
+
+
+
 	 private void deleteMenu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    String id = request.getParameter("id");
 		    if (id != null) {
 		        try {
 		            int menuId = Integer.parseInt(id);
 		            
-		            // Fetch the menu item to get the image URL
+		           
 		            Menu menu = menuService.getMenuById(menuId);
 		            if (menu != null) {
-		                // Get the image URL
+		             
 		                String imageUrl = menu.getImage();
 
-		                // Delete the menu item from the database
+		               
 		                menuService.deleteMenu(menuId);
 		                
-		                // Delete the associated image file from the server
+		              
 		                if (imageUrl != null && !imageUrl.trim().isEmpty()) {
-		                    // Construct the file path
-		                    String uploadPath = getServletContext().getRealPath("/images");
-		                    File file = new File(uploadPath + File.separator + imageUrl);
+		                   
+		                    String uploadPath = getUploadPath();
+		                    File file = new File(uploadPath + File.separator + Paths.get(imageUrl).getFileName());
 
 		                    if (file.exists()) {
-		                        boolean deleted = file.delete(); // Delete the file
+		                        boolean deleted = file.delete(); 
 		                        if (!deleted) {
 		                            throw new IOException("Failed to delete image file: " + file.getAbsolutePath());
 		                        }
 		                    }
 		                }
 
-		                // Redirect to the list page
+		                
 		                response.sendRedirect("menu?action=list");
 		            } else {
-		                // Handle case where the menu ID does not exist
+		               
 		                request.setAttribute("errorMessage", "Menu item not found.");
-		                request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+		                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+		                dispatcher.forward(request, response);
 		            }
 		        } catch (NumberFormatException e) {
 		            request.setAttribute("errorMessage", "Invalid menu ID format.");
-		            request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+		            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+		            dispatcher.forward(request, response);
 		        } catch (Exception e) {
 		            request.setAttribute("errorMessage", "Error: " + e.getMessage());
-		            request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+		            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+		            dispatcher.forward(request, response);
 		        }
 		    } else {
 		        response.sendRedirect("menu?action=list");
 		    }
 		}
-
 	}

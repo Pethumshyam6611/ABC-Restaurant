@@ -1,4 +1,4 @@
-
+<meta http-equiv="refresh" content="2">
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
     <div class="container mt-4">
         <h1 class="mb-4">Menu Dashboard</h1>
 
-        <!-- Display a message if it exists -->
+
         <c:if test="${not empty message}">
             <div class="alert alert-info">
                 <p>${message}</p>
@@ -23,7 +23,7 @@
 
 
 
-        <!-- Table for displaying menu items -->
+
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -37,7 +37,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Loop through the menuList and display each item -->
+              
                 <c:forEach var="menu" items="${menu}">
                     <tr>
                         <td>${menu.productID}</td>
@@ -59,11 +59,10 @@
             </tbody>
         </table>
 
-        <!-- Link to add a new menu item -->
         <a href="menu?action=add" class="">Add New Menu Item</a>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
