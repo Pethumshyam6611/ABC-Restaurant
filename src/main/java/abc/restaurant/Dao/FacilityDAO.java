@@ -1,5 +1,7 @@
 package abc.restaurant.Dao;
 
+import abc.restaurant.Model.Facility;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,32 +9,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import abc.restaurant.Model.Menu;
 
 /**
- * DAO class for interacting with the menu table in the database.
+ * DAO class for interacting with the facilities table in the database.
  */
-public class MenuDAO {
+public class FacilityDAO {
 
-    
     private Connection getConnection() throws ClassNotFoundException, SQLException {
         return DBconnectionFactory.getConnection();
     }
-    
-    
-    public void addMenu(Menu menu) {
-        String query = "INSERT INTO menu (category, name, description, price, product_img) VALUES (?, ?, ?, ?, ?)";
+
+    public void addFacility(Facility facility) {
+        String query = "INSERT INTO facilities (facility_name, description, facility_img) VALUES (?, ?, ?)";
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
-            connection = DBconnectionFactory.getConnection(); // Obtain a connection
+        	 connection = DBconnectionFactory.getConnection(); // Obtain a connection
             statement = connection.prepareStatement(query); // Prepare the SQL query
-            statement.setString(1, menu.getCategory()); // Set parameters
-            statement.setString(2, menu.getProductName());
-            statement.setString(3, menu.getDescription());
-            statement.setDouble(4, menu.getPrice());
-            statement.setString(5, menu.getImage());
+            statement.setString(1, facility.getFacilityName()); // Set parameters
+            statement.setString(2, facility.getDescription());
+            statement.setString(3, facility.getFacilityImg());
             statement.executeUpdate(); // Execute the query
         } catch (SQLException e) {
             e.printStackTrace(); // Print the stack trace for debugging
@@ -48,53 +45,49 @@ public class MenuDAO {
         }
     }
 
-
-    public List<Menu> getAllMenus() throws SQLException {
-        List<Menu> menus = new ArrayList<>();
-        String query = "SELECT * FROM menu"; // Make sure the table name matches your database schema
+    public List<Facility> getAllFacilities() throws SQLException {
+        List<Facility> facilities = new ArrayList<>();
+        String query = "SELECT * FROM facilities"; // Make sure the table name matches your database schema
 
         Connection connection = DBconnectionFactory.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
         
         while (resultSet.next()) {
-            int productID = resultSet.getInt("productid");
-            String category = resultSet.getString("category");
-            String productName = resultSet.getString("name");
+            int facilityId = resultSet.getInt("facilitiyid");
+            String facilityName = resultSet.getString("facility_name");
             String description = resultSet.getString("description");
-            double price = resultSet.getDouble("price");
-            String image = resultSet.getString("product_img");
+            String facilityImg = resultSet.getString("facility_img");
 
-            Menu menu = new Menu(productID, category, productName, description, price, image);
-            menus.add(menu);
+            Facility facility = new Facility(facilityId, facilityName, description, facilityImg);
+            facilities.add(facility);
         }
         
         resultSet.close();
         statement.close();
       
-        return menus;
+        return facilities;
     }
-    
-    public Menu getMenuById(int menuId) {
-        String query = "SELECT * FROM menu WHERE productid = ?";
+
+    public Facility getFacilitiesById(int facilityId) {
+        String query = "SELECT * FROM facilities WHERE facilitiyid = ?";
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Menu menu = null;
+        Facility facility = null;
  
         try {
             connection = getConnection();
             statement = connection.prepareStatement(query);
-            statement.setInt(1, menuId);
+            statement.setInt(1, facilityId);
             resultSet = statement.executeQuery();
  
             if (resultSet.next()) {
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                double price = resultSet.getDouble("price");
-                String category = resultSet.getString("category");
-                String image = resultSet.getString("product_img");
-                menu = new Menu(menuId, category, name, description, price, image);
+               String facilityName = resultSet.getString("facility_name");
+               String description = resultSet.getString("description");
+               String facilityImg = resultSet.getString("facility_img");
+
+               facility= new Facility(facilityId, facilityName, description, facilityImg);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -107,23 +100,22 @@ public class MenuDAO {
                 e.printStackTrace();
             }
         }
-        return menu;
+ 
+        return facility;
     }
 
-    public void updateMenu(Menu menu) {
-        String query = "UPDATE menu SET name = ?, description = ?, price = ?, category = ?, product_img = ? WHERE productid = ?";
+    public void updateFacility(Facility facility) {
+        String query = "UPDATE facilities SET  facility_name= ?, description = ?, facility_img = ? WHERE facilitiyid = ?";
         Connection connection = null;
         PreparedStatement statement = null;
  
         try {
             connection = getConnection();
             statement = connection.prepareStatement(query);
-            statement.setString(1, menu.getProductName());
-            statement.setString(2, menu.getDescription());
-            statement.setDouble(3, menu.getPrice());
-            statement.setString(4, menu.getCategory());
-            statement.setString(5, menu.getImage());
-            statement.setInt(6, menu.getProductID()); // Ensure this matches your model's field name
+            statement.setString(1, facility.getFacilityName());
+            statement.setString(2, facility.getDescription());
+            statement.setString(3, facility.getFacilityImg());
+            statement.setInt(4, facility.getFacilityId()); // Ensure this matches your model's field name
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -137,15 +129,15 @@ public class MenuDAO {
         }
     }
 
-    public void deleteMenu(int menuId) {
-        String query = "DELETE FROM menu WHERE productid = ?";
+    public void deleteFacility(int facilityId) {
+        String query = "DELETE FROM facilities WHERE facilitiyid = ?";
         Connection connection = null;
         PreparedStatement statement = null;
  
         try {
             connection = getConnection();
             statement = connection.prepareStatement(query);
-            statement.setInt(1, menuId);
+            statement.setInt(1, facilityId);
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -157,19 +149,13 @@ public class MenuDAO {
             }
         }
     }
-    
-    
-    
-    
-    
-    private Menu mapResultSetToMenu(ResultSet rs) throws SQLException {
-        int productID = rs.getInt("productid");
-        String category = rs.getString("category");
-        String productName = rs.getString("name");
-        String description = rs.getString("description");
-        double price = rs.getDouble("price");
-        String image = rs.getString("product_img");
 
-        return new Menu(productID, category, productName, description, price, image);
+    private Facility mapResultSetToFacility(ResultSet rs) throws SQLException {
+        int facilityId = rs.getInt("facilitiyid");
+        String facilityName = rs.getString("facility_name");
+        String description = rs.getString("description");
+        String facilityImg = rs.getString("facility_img");
+
+        return new Facility(facilityId, facilityName, description, facilityImg);
     }
 }
