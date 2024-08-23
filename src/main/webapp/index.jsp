@@ -73,6 +73,11 @@
                 
                 <a href="offer?action=list" class="btn btn-primary btn-lg">View offer</a>
                 <a href="offer?action=add" class="btn btn-primary btn-lg">Add offer</a>
+                
+                 <br>
+                
+                <a href="reservations?action=list" class="btn btn-primary btn-lg">View offer</a>
+                <a href="reservations?action=new" class="btn btn-primary btn-lg">Add offer</a>
             </div>
         </div>
     </div>
