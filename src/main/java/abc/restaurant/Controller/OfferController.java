@@ -1,4 +1,5 @@
 package abc.restaurant.Controller;
+
 import abc.restaurant.Model.Offer;
 import abc.restaurant.Services.OfferService;
 
@@ -14,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,30 +24,27 @@ import java.util.Properties;
 @MultipartConfig
 public class OfferController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+    
     private OfferService offerService;
 
-    @Override
     public void init() throws ServletException {
-        Connection connection = (Connection) getServletContext().getAttribute("DBConnection");
-        offerService = OfferService.getInstance(connection);
+        offerService = OfferService.getInstance();
     }
 
     private String getUploadPath() {
         Properties properties = new Properties();
         try (InputStream input = getServletContext().getResourceAsStream("/WEB-INF/classes/MenuItemFolderPath.properties")) {
             if (input == null) {
-                throw new RuntimeException("Sorry, unable to find OfferImagePath.properties");
+                throw new RuntimeException("Sorry, unable to find config.properties");
             }
             properties.load(input);
             return properties.getProperty("image.upload.path");
         } catch (IOException ex) {
             ex.printStackTrace();
-            throw new RuntimeException("Error reading OfferImagePath.properties", ex);
+            throw new RuntimeException("Error reading config.properties", ex);
         }
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null || action.equals("list")) {
@@ -61,7 +58,6 @@ public class OfferController extends HttpServlet {
         }
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action.equals("add")) {
@@ -75,7 +71,7 @@ public class OfferController extends HttpServlet {
         List<Offer> offerList = new ArrayList<>();
         try {
             offerList = offerService.getAllOffers();
-            request.setAttribute("offers", offerList);
+            request.setAttribute("offer", offerList);
         } catch (SQLException e) {
             request.setAttribute("errorMessage", e.getMessage());
             request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
@@ -91,10 +87,8 @@ public class OfferController extends HttpServlet {
     private void addOffer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String discountPercentage = request.getParameter("discountPercentage");
-        String validFrom = request.getParameter("validFrom");
-        String validTo = request.getParameter("validTo");
-        
+        int price = Integer.parseInt(request.getParameter("price"));
+
         Part imagePart = request.getPart("image");
         String imageUrl = null;
 
@@ -119,9 +113,7 @@ public class OfferController extends HttpServlet {
         Offer offer = new Offer();
         offer.setTitle(title);
         offer.setDescription(description);
-        offer.setDiscountPercentage(discountPercentage);
-        offer.setValidFrom(validFrom);
-        offer.setValidTo(validTo);
+        offer.setPrice(price);
         offer.setOfferImg(imageUrl);
 
         offerService.addOffer(offer);
@@ -142,7 +134,7 @@ public class OfferController extends HttpServlet {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/editOffer.jsp");
                     dispatcher.forward(request, response);
                 } else {
-                    request.setAttribute("errorMessage", "Offer not found.");
+                    request.setAttribute("errorMessage", "Offer item not found.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
                     dispatcher.forward(request, response);
                 }
@@ -164,9 +156,7 @@ public class OfferController extends HttpServlet {
         int offerId = Integer.parseInt(request.getParameter("id"));
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String discountPercentage = request.getParameter("discountPercentage");
-        String validFrom = request.getParameter("validFrom");
-        String validTo = request.getParameter("validTo");
+        int price = Integer.parseInt(request.getParameter("price"));
 
         Part imagePart = request.getPart("image");
         String imageUrl = null;
@@ -174,13 +164,12 @@ public class OfferController extends HttpServlet {
         Offer existingOffer = offerService.getOfferById(offerId);
 
         if (existingOffer == null) {
-            request.setAttribute("errorMessage", "Offer not found.");
+            request.setAttribute("errorMessage", "Offer item not found.");
             request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
             return;
         }
 
         String oldImageUrl = existingOffer.getOfferImg();
-
         String uploadPath = getUploadPath();
         File uploadDir = new File(uploadPath);
 
@@ -206,6 +195,8 @@ public class OfferController extends HttpServlet {
                     boolean deleted = oldImageFile.delete();
                     if (!deleted) {
                         System.err.println("Failed to delete the old image file: " + oldImageFile.getAbsolutePath());
+                    } else {
+                        System.out.println("Successfully deleted old image file: " + oldImageFile.getAbsolutePath());
                     }
                 }
             }
@@ -217,9 +208,7 @@ public class OfferController extends HttpServlet {
         updatedOffer.setOfferId(offerId);
         updatedOffer.setTitle(title);
         updatedOffer.setDescription(description);
-        updatedOffer.setDiscountPercentage(discountPercentage);
-        updatedOffer.setValidFrom(validFrom);
-        updatedOffer.setValidTo(validTo);
+        updatedOffer.setPrice(price);
         updatedOffer.setOfferImg(imageUrl);
 
         try {
@@ -240,28 +229,34 @@ public class OfferController extends HttpServlet {
                 if (offer != null) {
                     String imageUrl = offer.getOfferImg();
                     offerService.deleteOffer(offerId);
-
                     if (imageUrl != null && !imageUrl.trim().isEmpty()) {
                         String uploadPath = getUploadPath();
                         File file = new File(uploadPath + File.separator + Paths.get(imageUrl).getFileName());
-                        if (file.exists() && !file.delete()) {
-                            throw new IOException("Failed to delete image file: " + file.getAbsolutePath());
+
+                        if (file.exists()) {
+                            boolean deleted = file.delete();
+                            if (!deleted) {
+                                throw new IOException("Failed to delete image file: " + file.getAbsolutePath());
+                            }
                         }
                     }
-
                     response.sendRedirect("offer?action=list");
                 } else {
-                    request.setAttribute("errorMessage", "Offer not found.");
-                    request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+                    request.setAttribute("errorMessage", "Offer item not found.");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+                    dispatcher.forward(request, response);
                 }
             } catch (NumberFormatException e) {
                 request.setAttribute("errorMessage", "Invalid offer ID format.");
-                request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+                dispatcher.forward(request, response);
             } catch (Exception e) {
                 request.setAttribute("errorMessage", "Error: " + e.getMessage());
-                request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+                dispatcher.forward(request, response);
             }
         } else {
             response.sendRedirect("offer?action=list");
         }
-    }}
+    }
+}

@@ -7,9 +7,7 @@ public class Offer {
     private int offerId;
     private String title;
     private String description;
-    private String discountPercentage;
-    private String validFrom;
-    private String validTo;
+    private int price;
     private String offerImg;
 
     // Default constructor
@@ -17,41 +15,35 @@ public class Offer {
     }
 
     // Parameterized constructor
-    public Offer(int offerId, String title, String description, String discountPercentage, String validFrom, String validTo, String offerImg) {
+    public Offer(int offerId, String title, String description,int price,String offerImg) {
         this.offerId = offerId;
         this.title = title;
         this.description = description;
-        this.discountPercentage = discountPercentage;
-        this.validFrom = validFrom;
-        this.validTo = validTo;
+        this.price= price;
         this.offerImg = offerImg;
     }
     
-    public Offer(int offerId, String title, String description, String discountPercentage,String offerImg) {
-        this.offerId = offerId;
-        this.title = title;
-        this.description = description;
-        this.discountPercentage = discountPercentage;
-        this.offerImg = offerImg;
-    }
     
+    // Parameterized constructor
     public Offer(int offerId, String title, String description,String offerImg) {
         this.offerId = offerId;
         this.title = title;
         this.description = description;
         this.offerImg = offerImg;
     }
-    
+    // Parameterized constructor
     public Offer(int offerId, String title,String offerImg) {
         this.offerId = offerId;
         this.title = title;
         this.offerImg = offerImg;
     }
+    
     public Offer(int offerId, String title) {
         this.offerId = offerId;
         this.title = title;
-
     }
+  
+ 
     // Getters and Setters
     public int getOfferId() {
         return offerId;
@@ -76,31 +68,14 @@ public class Offer {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getDiscountPercentage() {
-        return discountPercentage;
+    
+    public int getPrice() {
+        return price;
     }
 
-    public void setDiscountPercentage(String discountPercentage) {
-        this.discountPercentage = discountPercentage;
+    public void setPrice(int price) {
+        this.price = price;
     }
-
-    public String getValidFrom() {
-        return validFrom;
-    }
-
-    public void setValidFrom(String validFrom) {
-        this.validFrom = validFrom;
-    }
-
-    public String getValidTo() {
-        return validTo;
-    }
-
-    public void setValidTo(String validTo) {
-        this.validTo = validTo;
-    }
-
     public String getOfferImg() {
         return offerImg;
     }

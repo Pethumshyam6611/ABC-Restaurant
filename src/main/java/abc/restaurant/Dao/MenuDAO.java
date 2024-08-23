@@ -37,8 +37,7 @@ public class MenuDAO {
         } catch (SQLException e) {
             e.printStackTrace(); // Print the stack trace for debugging
         }   finally
-        {
-        	try {
+        {       	try {
 				statement.close();
 				
 			} catch (SQLException e) {

@@ -7,96 +7,160 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import abc.restaurant.Model.Offer;
 
+/**
+ * DAO class for interacting with the offers table in the database.
+ */
 public class OfferDAO {
-    private Connection connection;
 
-    // Constructor to initialize the database connection
-    public OfferDAO(Connection connection) {
-        this.connection = connection;
+    private Connection getConnection() throws ClassNotFoundException, SQLException {
+        return DBconnectionFactory.getConnection();
     }
 
-    // Method to create a new offer
-    public void addOffer(Offer offer) throws SQLException {
-        String sql = "INSERT INTO offers (title, description, discount_precentage, valid_from, valid_to, offer_img) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, offer.getTitle());
+    public void addOffer(Offer offer) {
+        String query = "INSERT INTO offers (title, description, price, offer_img) VALUES (?, ?, ?, ?)";
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = getConnection(); // Obtain a connection
+            statement = connection.prepareStatement(query); // Prepare the SQL query
+            statement.setString(1, offer.getTitle()); // Set parameters
             statement.setString(2, offer.getDescription());
-            statement.setString(3, offer.getDiscountPercentage());
-            statement.setString(4, offer.getValidFrom());
-            statement.setString(5, offer.getValidTo());
-            statement.setString(6, offer.getOfferImg());
-            statement.executeUpdate();
-        }
-    }
-
-    // Method to get an offer by ID
-    public Offer getOfferById(int offerId) throws SQLException {
-        Offer offer = null;
-        String sql = "SELECT * FROM offers WHERE offerid = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, offerId);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    offer = new Offer(
-                        resultSet.getInt("offerid"),
-                        resultSet.getString("title"),
-                        resultSet.getString("description"),
-                        resultSet.getString("discount_precentage"),
-                        resultSet.getString("valid_from"),
-                        resultSet.getString("valid_to"),
-                        resultSet.getString("offer_img")
-                    );
-                }
+            statement.setInt(3, offer.getPrice());
+            statement.setString(4, offer.getOfferImg());
+            statement.executeUpdate(); // Execute the query
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Print the stack trace for debugging
+        } finally {
+            try {
+                if (statement != null) statement.close();
+                
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
-        return offer;
     }
 
-    // Method to get all offers
-    public List<Offer> getAllOffers() throws SQLException {
+    public List<Offer> getAllOffers() {
         List<Offer> offers = new ArrayList<>();
-        String sql = "SELECT * FROM offers";
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)) {
+        String query = "SELECT * FROM offers"; // Make sure the table name matches your database schema
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
             while (resultSet.next()) {
-                Offer offer = new Offer(
-                    resultSet.getInt("offerid"),
-                    resultSet.getString("title"),
-                    resultSet.getString("description"),
-                    resultSet.getString("discount_precentage"),
-                    resultSet.getString("valid_from"),
-                    resultSet.getString("valid_to"),
-                    resultSet.getString("offer_img")
-                );
+                Offer offer = mapResultSetToOffer(resultSet);
                 offers.add(offer);
             }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+              
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return offers;
     }
 
-    // Method to update an offer
-    public void updateOffer(Offer offer) throws SQLException {
-        String sql = "UPDATE offers SET title = ?, description = ?, discount_precentage = ?, valid_from = ?, valid_to = ?, offer_img = ? WHERE offerid = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    public Offer getOfferById(int offerId) {
+        String query = "SELECT * FROM offers WHERE offerid = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Offer offer = null;
+
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, offerId);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                offer = mapResultSetToOffer(resultSet);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+               
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return offer;
+    }
+
+    public void updateOffer(Offer offer) {
+        String query = "UPDATE offers SET title = ?, description = ?, price = ?, offer_img = ? WHERE offerid = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(query);
             statement.setString(1, offer.getTitle());
             statement.setString(2, offer.getDescription());
-            statement.setString(3, offer.getDiscountPercentage());
-            statement.setString(4, offer.getValidFrom());
-            statement.setString(5, offer.getValidTo());
-            statement.setString(6, offer.getOfferImg());
-            statement.setInt(7, offer.getOfferId());
+            statement.setInt(3, offer.getPrice());
+            statement.setString(4, offer.getOfferImg());
+            statement.setInt(5, offer.getOfferId());
             statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+             
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    // Method to delete an offer
-    public void deleteOffer(int offerId) throws SQLException {
-        String sql = "DELETE FROM offers WHERE offerid = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    public void deleteOffer(int offerId) {
+        String query = "DELETE FROM offers WHERE offerid = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(query);
             statement.setInt(1, offerId);
             statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+               
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-    }}
+    }
+
+    private Offer mapResultSetToOffer(ResultSet rs) throws SQLException {
+        int offerId = rs.getInt("offerid");
+        String title = rs.getString("title");
+        String description = rs.getString("description");
+        int price = rs.getInt("price");
+        String offerImg = rs.getString("offer_img");
+
+        return new Offer(offerId, title, description, price, offerImg);
+    }
+}
