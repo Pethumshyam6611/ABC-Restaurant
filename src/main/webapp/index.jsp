@@ -83,6 +83,11 @@
                 
                 <a href="oders?action=list" class="btn btn-primary btn-lg">View Oder</a>
                 <a href="oders?action=new" class="btn btn-primary btn-lg">Add Oder</a>
+                
+                 <br>
+                
+                <a href="payments?action=list" class="btn btn-primary btn-lg">View Payments</a>
+                <a href="payments?action=new" class="btn btn-primary btn-lg">Add Payment</a>
             </div>
         </div>
     </div>
