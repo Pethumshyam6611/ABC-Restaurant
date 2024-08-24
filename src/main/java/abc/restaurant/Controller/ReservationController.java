@@ -73,7 +73,7 @@ public class ReservationController extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int reservationId = Integer.parseInt(request.getParameter("id"));
         Reservation existingReservation = reservationService.getReservationById(reservationId);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/reservationForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/Editreservation.jsp");
         request.setAttribute("reservation", existingReservation);
         dispatcher.forward(request, response);
     }

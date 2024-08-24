@@ -78,6 +78,11 @@
                 
                 <a href="reservations?action=list" class="btn btn-primary btn-lg">View offer</a>
                 <a href="reservations?action=new" class="btn btn-primary btn-lg">Add offer</a>
+                
+                 <br>
+                
+                <a href="oders?action=list" class="btn btn-primary btn-lg">View Oder</a>
+                <a href="oders?action=new" class="btn btn-primary btn-lg">Add Oder</a>
             </div>
         </div>
     </div>
