@@ -28,10 +28,8 @@
             <label for="totalPrice">Total Price</label>
             <input type="number" step="0.01" class="form-control" id="totalPrice" name="totalPrice" required>
         </div>
-        <div class="form-group">
-            <label for="status">Status</label>
-            <input type="text" class="form-control" id="status" name="status" required>
-        </div>
+        <!-- Hidden field to always set status to "pending" -->
+        <input type="hidden" name="status" value="pending"/>
         <button type="submit" class="btn btn-primary">Add Order</button>
         <a href="oders?action=list" class="btn btn-secondary">Back to List</a>
     </form>

@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h1 class="mb-4">Menu Dashboard</h1>
+        <h1 class="mb-4">Menu List</h1>
 
 
         <c:if test="${not empty message}">
@@ -22,8 +22,9 @@
 
 
 
-
-
+		<a href="menu?action=add" class="btn btn-primary btn-lg">Add Menu Item</a>
+		<br>
+		<br>
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -59,7 +60,7 @@
             </tbody>
         </table>
 
-        <a href="menu?action=add" class="">Add New Menu Item</a>
+        <a href="index.jsp" class="btn btn-danger btn-lg">Go to Main Menu</a>
     </div>
 
     

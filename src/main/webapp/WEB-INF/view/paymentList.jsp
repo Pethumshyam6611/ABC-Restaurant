@@ -14,6 +14,10 @@
         <c:if test="${not empty errorMessage}">
             <div class="alert alert-danger">${errorMessage}</div>
         </c:if>
+        
+                <a href="payments?action=new" class="btn btn-primary">Add New Payment</a>
+         <br>
+         <br>       
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -39,7 +43,7 @@
                 </c:forEach>
             </tbody>
         </table>
-        <a href="payments?action=new" class="btn btn-primary">Add New Payment</a>
+        <a href="index.jsp" class="btn btn-danger btn-lg">Go to Main Menu</a>
     </div>
 </body>
 </html>

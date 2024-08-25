@@ -10,7 +10,9 @@
 <body>
 <div class="container">
     <h2 class="mt-5">Order List</h2>
-    <a href="oders?action=new" class="btn btn-primary mb-3">Add New Order</a>
+    <a href="oders?action=new" class="btn btn-primary btn-lg">Add New Order</a>
+    <br>
+   	<br>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -43,6 +45,7 @@
             </c:forEach>
         </tbody>
     </table>
+    <a href="index.jsp" class="btn btn-danger btn-lg">Go to Main Menu</a>
 </div>
 </body>
 </html>

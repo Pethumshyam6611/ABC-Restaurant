@@ -19,6 +19,9 @@
             </div>
         </c:if>
 
+  <a href="facility?action=add" class="btn btn-primary btn-lg">Add New Facility</a>
+  <br>
+  <br>
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -46,7 +49,7 @@
             </tbody>
         </table>
 
-        <a href="facility?action=add" class="btn btn-success">Add New Facility</a>
+      <a href="index.jsp" class="btn btn-danger btn-lg">Go to Main Menu</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

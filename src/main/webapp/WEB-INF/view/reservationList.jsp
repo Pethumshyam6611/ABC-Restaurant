@@ -43,6 +43,8 @@
                 </c:forEach>
             </tbody>
         </table>
+        <br>
+        <a href="index.jsp" class="btn btn-danger btn-lg">Go to Main Menu</a>
     </div>
 </body>
 </html>

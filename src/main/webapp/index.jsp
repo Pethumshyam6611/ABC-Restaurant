@@ -3,92 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>Admin Dashboard</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
-            color: #343a40;
-            font-family: Arial, sans-serif;
+            background-color: #d1f56d; /* Yellow-green background */
+            color: #fff; /* White text */
+            font-family: 'Arial', sans-serif;
         }
         .container {
-            margin-top: 100px;
+            margin-top: 50px;
             text-align: center;
         }
-        .btn-lg {
-            margin: 15px;
-            padding: 15px 30px;
+        h1 {
+            margin-bottom: 50px;
+            font-size: 3rem;
+            color: #fff; /* White color for the header */
         }
-        h2 {
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            color: #007bff;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .btn-primary:focus, .btn-primary.focus {
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+        .card-deck {
+            margin-top: 20px;
         }
         .card {
-            margin-top: 20px;
+            background-color: #fff; /* White background for cards */
             border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 15px;
+            color: #343a40; /* Dark grey text */
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
         .card-body {
-            padding: 2rem;
+            padding: 1.5rem;
+            text-align: center;
         }
         .card-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        a.text-decoration-none {
+            color: #343a40; /* Dark grey text for links */
+            text-decoration: none;
+        }
+        a.text-decoration-none:hover {
+            color: #d1f56d; /* Yellow-green hover effect */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Welcome to the Dashboard!</h2>
-                
-                <!-- Buttons for navigating to the menu pages -->
-                <a href="menu?action=list" class="btn btn-primary btn-lg">View Menu</a>
-                <a href="menu?action=add" class="btn btn-primary btn-lg">Add Menu</a>
-                
-                <br>
-                
-                <a href="user?action=list" class="btn btn-primary btn-lg">View Users</a>
-                <a href="user?action=add" class="btn btn-primary btn-lg">Add User</a>
-                
-                <br>
-                
-                <a href="facility?action=list" class="btn btn-primary btn-lg">View Facilities</a>
-                <a href="facility?action=add" class="btn btn-primary btn-lg">Add Facilities</a>
-                
-                <br>
-                
-                <a href="offer?action=list" class="btn btn-primary btn-lg">View offer</a>
-                <a href="offer?action=add" class="btn btn-primary btn-lg">Add offer</a>
-                
-                 <br>
-                
-                <a href="reservations?action=list" class="btn btn-primary btn-lg">View offer</a>
-                <a href="reservations?action=new" class="btn btn-primary btn-lg">Add offer</a>
-                
-                 <br>
-                
-                <a href="oders?action=list" class="btn btn-primary btn-lg">View Oder</a>
-                <a href="oders?action=new" class="btn btn-primary btn-lg">Add Oder</a>
-                
-                 <br>
-                
-                <a href="payments?action=list" class="btn btn-primary btn-lg">View Payments</a>
-                <a href="payments?action=new" class="btn btn-primary btn-lg">Add Payment</a>
-            </div>
+        <h1>Admin Panel Dashboard</h1>
+        
+        <!-- First Row: 4 Cards -->
+        <div class="card-deck">
+            <!-- Menu Card -->
+            <a href="menu?action=list" class="card text-decoration-none col-md-3">
+                <div class="card-body">
+                    <h2 class="card-title">Menu</h2>
+                </div>
+            </a>
+            <!-- Users Card -->
+            <a href="user?action=list" class="card text-decoration-none col-md-3">
+                <div class="card-body">
+                    <h2 class="card-title">Users</h2>
+                </div>
+            </a>
+            <!-- Facility Card -->
+            <a href="facility?action=list" class="card text-decoration-none col-md-3">
+                <div class="card-body">
+                    <h2 class="card-title">Facility</h2>
+                </div>
+            </a>
+            <!-- Offer Card -->
+            <a href="offer?action=list" class="card text-decoration-none col-md-3">
+                <div class="card-body">
+                    <h2 class="card-title">Offer</h2>
+                </div>
+            </a>
+        </div>
+
+        <!-- Second Row: 3 Cards -->
+        <div class="card-deck">
+            <!-- Reservation Card -->
+            <a href="reservations?action=list" class="card text-decoration-none col-md-4">
+                <div class="card-body">
+                    <h2 class="card-title">Reservation</h2>
+                </div>
+            </a>
+            <!-- Oder Card -->
+            <a href="oders?action=list" class="card text-decoration-none col-md-4">
+                <div class="card-body">
+                    <h2 class="card-title">Oder</h2>
+                </div>
+            </a>
+            <!-- Payment Card -->
+            <a href="payments?action=list" class="card text-decoration-none col-md-4">
+                <div class="card-body">
+                    <h2 class="card-title">Payment</h2>
+                </div>
+            </a>
         </div>
     </div>
 
