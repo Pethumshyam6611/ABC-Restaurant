@@ -49,7 +49,7 @@ public class OderDAO {
     // Retrieve all orders
     public List<Oder> getAllOders() throws SQLException {
         List<Oder> oders = new ArrayList<>();
-        String query = "SELECT * FROM oder"; // Ensure the table name matches your database schema
+        String query = "SELECT * FROM oder ORDER BY oderid DESC"; // Ensure the table name matches your database schema
 
         Connection connection = null;
         Statement statement = null;

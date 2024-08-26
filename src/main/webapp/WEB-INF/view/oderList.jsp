@@ -10,9 +10,15 @@
 <body>
 <div class="container">
     <h2 class="mt-5">Order List</h2>
-    <a href="oders?action=new" class="btn btn-primary btn-lg">Add New Order</a>
-    <br>
-   	<br>
+
+    <%-- Get the logged-in user's role --%>
+    <c:set var="role" value="${sessionScope.loggedInUser.role}" />
+
+    <%-- Conditionally display the Add Order button only for Admins --%>
+    <c:if test="${role == 'Admin'}">
+        <a href="oders?action=new" class="btn btn-primary mb-3">Add Order</a>
+    </c:if>
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -45,6 +51,7 @@
             </c:forEach>
         </tbody>
     </table>
+
     <a href="index.jsp" class="btn btn-danger btn-lg">Go to Main Menu</a>
 </div>
 </body>

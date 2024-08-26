@@ -23,8 +23,12 @@
             <input type="password" class="form-control" id="password" name="password" value="${user.password}" required>
         </div>
         <div class="form-group">
-            <label for="role">Role</label>
-            <input type="text" class="form-control" id="role" name="role" value="${user.role}" required>
+            <label for="method">Role</label>
+            <select class="form-control" id="role" name="role" required>
+                <option value="Admin">Admin</option>
+                <option value="Staff">Staff</option>
+                <option value="Customer">Customer</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="email">Email</label>

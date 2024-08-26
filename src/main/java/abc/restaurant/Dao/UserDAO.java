@@ -91,4 +91,17 @@ public class UserDAO {
             rs.getInt("phone")
         );
     }
+    public User authenticate(String username, String password) throws SQLException {
+        String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapRowToUser(rs);
+                }
+            }
+        }
+        return null;
+    }
 }

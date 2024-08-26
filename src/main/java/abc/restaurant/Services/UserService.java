@@ -54,6 +54,11 @@ public class UserService {
         userDAO.deleteUser(userId);
     }
 
+    // Authenticate a user by username and password
+    public User authenticateUser(String username, String password) throws SQLException {
+        return userDAO.authenticate(username, password);
+    }
+
     // Additional methods for specific business logic can be added here
     // For example, user authentication or role-based access control
 }

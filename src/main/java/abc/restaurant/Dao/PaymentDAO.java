@@ -46,7 +46,7 @@ public class PaymentDAO {
     // Retrieve all payments
     public List<Payment> getAllPayments() throws SQLException {
         List<Payment> payments = new ArrayList<>();
-        String query = "SELECT * FROM payment"; // Make sure the table name matches your database schema
+        String query = "SELECT * FROM payment ORDER BY paymentid DESC"; // Make sure the table name matches your database schema
 
         Connection connection = null;
         Statement statement = null;

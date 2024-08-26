@@ -49,7 +49,7 @@ public class ReservationDAO {
     // Retrieve all reservations
     public List<Reservation> getAllReservations() throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM reservations"; // Make sure the table name matches your database schema
+        String query = "SELECT * FROM reservations ORDER BY reservationid DESC"; // Make sure the table name matches your database schema
 
         Connection connection = null;
         Statement statement = null;

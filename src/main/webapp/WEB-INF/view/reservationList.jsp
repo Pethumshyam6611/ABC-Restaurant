@@ -11,7 +11,16 @@
 <body>
     <div class="container">
         <h2 class="my-4">Reservation List</h2>
-        <a href="reservations?action=new" class="btn btn-primary mb-3">Add New Reservation</a>
+         <%-- Get the logged-in user's role --%>
+    <c:set var="role" value="${sessionScope.loggedInUser.role}" />
+
+    <%-- Conditionally display the Add Order button only for Admins --%>
+    <c:if test="${role == 'Admin'}">
+        <a href="reservations?action=new" class="btn btn-primary mb-3">Add Reservation</a>
+    </c:if>
+        
+        
+        
         <table class="table table-bordered">
             <thead>
                 <tr>

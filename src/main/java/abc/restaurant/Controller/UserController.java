@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -49,6 +51,7 @@ public class UserController extends HttpServlet {
             addUser(request, response);
         } else if (action.equals("update")) {
             updateUser(request, response);
+        } else if (action.equals("login")) {
         }
     }
 
@@ -178,4 +181,7 @@ public class UserController extends HttpServlet {
             response.sendRedirect("user?action=list");
         }
     }
+
+   
+
 }
