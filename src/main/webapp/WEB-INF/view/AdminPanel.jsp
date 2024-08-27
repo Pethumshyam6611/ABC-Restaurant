@@ -128,6 +128,18 @@
                     <h2 class="card-title">Payment</h2>
                 </div>
             </a>
+            
+            
+            <a href="gallery?action=list" class="card text-decoration-none col-md-4">
+                <div class="card-body">
+                    <h2 class="card-title">Gallery List</h2>
+                </div>
+            </a>
+             <a href="gallery?action=add" class="card text-decoration-none col-md-4">
+                <div class="card-body">
+                    <h2 class="card-title">Add Gallery</h2>
+                </div>
+            </a>
         </div>
     </div>
 
