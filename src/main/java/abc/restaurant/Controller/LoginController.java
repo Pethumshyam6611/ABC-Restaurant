@@ -1,7 +1,7 @@
 package abc.restaurant.Controller;
 
-import abc.restaurant.Services.UserService;
 import abc.restaurant.Model.User;
+import abc.restaurant.Services.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,10 +26,16 @@ public class LoginController extends HttpServlet {
             if (user != null) {
                 // Authentication successful
                 request.getSession().setAttribute("user", user); // Set user in session
+                
                 if ("Admin".equals(user.getRole())) {
                     response.sendRedirect("admin-panel");
                 } else if ("Staff".equals(user.getRole())) {
                     response.sendRedirect("staff-panel");
+                } else if ("Customer".equals(user.getRole())) {
+                    // Pass user ID to index.jsp via session
+                    request.getSession().setAttribute("userId", user.getUserId());
+                    request.getSession().setAttribute("username", user.getUsername());
+                    response.sendRedirect("mainPage"); // Redirect to index.jsp for customers
                 } else {
                     request.setAttribute("errorMessage", "Invalid role");
                     request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
@@ -70,3 +76,4 @@ public class LoginController extends HttpServlet {
         }
     }
 }
+

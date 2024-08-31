@@ -14,7 +14,7 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <!-- Load icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -28,11 +28,11 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap JS (including Popper.js) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <!-- Bootstrap JS (including Popper.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
   
 
   <!-- Main CSS File -->
@@ -49,6 +49,25 @@
 
 
 <body class="index-page">
+<% // Retrieve user ID from session
+Integer userId = (Integer) session.getAttribute("userId");%>
+
+<%
+    // Retrieve the username from the session
+    String username = (String) session.getAttribute("username");
+
+%>
+
+	<script>
+    	// Make the user ID available to JavaScript
+    		var userId = <%= userId %>;
+    		
+	</script>
+	
+	
+	
+	
+	
 
   <header id="header" class="header fixed-top">
     <div class="topbar d-flex align-items-center">
@@ -79,10 +98,15 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
           <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
-      <i class="bi bi-cart-fill" style="font-size: 1.5rem; color: yellowgreen;"></i>
+      <i class="bi bi-cart-fill" style="font-size: 1.5rem; color: white;"></i>
       <span class="badge bg-danger" id="cart-count">0</span>
+    <a href="#" id="signup-button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" style="color: whitesmoke; background-color: yellowgreen; border-radius: 5px;">
+    <% if (username != null && !username.isEmpty()) { %>
+        Wellcome, <%= username %>
+    <% } else { %>
+        Sign Up
+    <% } %>
     </a>
-        <a href="#book-a-table" class="btn" style="color: whitesmoke; background-color:yellowgreen; border-radius: 30px; border-radius: 0px;">Sign Up</a>
       </div>
 
     </div>
@@ -114,8 +138,8 @@
     
 <br>
 <br>
-    <!-- About Section -->
-    <section id="about" class="about section light-background">
+<!-- About Section -->
+<section id="about" class="about section light-background">
 
       <div class="container">
 <!-- Section Title -->
@@ -124,8 +148,8 @@
  				<br>
   				<h1 style=" font-weight: 800;">ABOUT <span style=" color: yellowgreen">US</span></h1>
   				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
-	 of the Semantics,<br> a large language ocean.</p>
-</div><!-- End Section Title -->
+	            of the Semantics,<br> a large language ocean.</p>
+            </div><!-- End Section Title -->
         <div class="row gy-4">
           <div class="row align-items-center" data-aos="fade-up" data-aos-delay="100" >
             <div class="col-lg-4">
@@ -156,7 +180,7 @@
     <section id="why-us" class="why-us section" style=" background-color: yellowgreen;">
 
      <!-- Section Title -->
- <div class="container section-title" data-aos="fade-up">
+    <div class="container section-title" data-aos="fade-up">
   	<hr style="width: 7%; height: 3px; background-color: #ffffff; margin: 0 auto;">
   	<br>
   	<h1 style=" font-weight: 800;">OUR <span style="color: white;">SERVICES</span></span></h1>
@@ -165,7 +189,7 @@
 	</div><!-- End Section Title -->
 	
 	
-  <div class="container">
+    <div class="container">
 
         <div class="row gy-4">
 
@@ -247,79 +271,69 @@
       </div><!-- End Container -->
     </section><!-- End Menu Filter Section -->
 
-  <!-- Cart Modal -->
-<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content border-0 rounded-3" style="background-color: #fff; color: #333;">
-      <div class="modal-header border-bottom-0">
-        <h5 class="modal-title" id="cartModalLabel" style="color: #9ACD32;">Your Cart</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-striped">
-          <thead class="table-light" style="background-color: #9ACD32; color: white;">
-            <tr>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Total</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="cart-items">
-            <!-- Cart items will be dynamically loaded here -->
-          </tbody>
-        </table>
-        <h5 class="mt-3" style="color: #333;">Total: Rs. <span id="cart-total" style="color: #9ACD32;">0.00</span></h5>
-        <div id="cart-summary" class="mt-3">
-          <!-- Cart summary will be dynamically loaded here -->
+      <!-- Cart Modal -->
+        <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content border-0 rounded-3" style="background-color: #fff; color: #333;">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title" id="cartModalLabel" style="color: #9ACD32;">Your Cart</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead class="table-light" style="background-color: #9ACD32; color: white;">
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart-items">
+                                <!-- Cart items will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                        <h5 class="mt-3" style="color: #333;">Total: Rs. <span id="cart-total" style="color: #9ACD32;">0.00</span></h5>
+                        <div id="cart-summary" class="mt-3">
+                            <!-- Cart summary will be dynamically loaded here -->
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="checkout-button">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer border-top-0">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #9ACD32; border-color: #9ACD32;">Close</button>
-        <a href="order?action=checkout" class="btn btn-primary" style="background-color: #9ACD32; border-color: #9ACD32;">Proceed to Checkout</a>
-      </div>
-    </div>
-  </div>
-</div><!-- End Cart Modal -->
 
-
-
-  </div><!-- End Container -->
-</section><!-- End Menu Section -->
-
+        <!-- Hidden Checkout Form -->
+        <form id="checkout-form" action="oder" method="post" style="display: none;">
+            <input type="hidden" name="action" value="new">
+            <input type="hidden" name="foodNamewithQT" id="hidden-foodNamewithQT">
+            <input type="hidden" name="userIdp" value="6" id="hidden-userIdp">
+            <input type="hidden" name="type" id="hidden-type" value="dine in">
+            <input type="hidden" name="status" id="hidden-status" value="pending">
+            <input type="hidden" name="totalPrice" id="hidden-totalPrice">
+            <input type="hidden" name="datetime" id="hidden-datetime">
+        </form>
+        
+    </section>
+    
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Assuming userId is obtained from the session in your JSP and set in a JavaScript variable
+    var userId = <%= (userId != null) ? userId : -1 %>; // Replace this with actual user ID, or -1 if not logged in
+
     var cartItems = {};
     var cartCountElement = document.getElementById('cart-count');
     var cartTotalElement = document.getElementById('cart-total');
     var cartItemsElement = document.getElementById('cart-items');
     var cartSummaryElement = document.getElementById('cart-summary');
-    
-    var addToCartButtons = document.querySelectorAll('.add-to-cart');
-    for (var i = 0; i < addToCartButtons.length; i++) {
-        addToCartButtons[i].addEventListener('click', function(e) {
-            e.preventDefault();
-            var button = e.currentTarget;
-            var menuID = button.getAttribute('data-id');
-            var menuName = button.getAttribute('data-name');
-            var menuPrice = parseFloat(button.getAttribute('data-price'));
+    var checkoutForm = document.getElementById('checkout-form');
+    var checkoutButton = document.getElementById('checkout-button');
 
-            if (!cartItems[menuID]) {
-                cartItems[menuID] = {
-                    name: menuName,
-                    price: menuPrice,
-                    quantity: 1,
-                    total: menuPrice
-                };
-            } else {
-                cartItems[menuID].quantity++;
-                cartItems[menuID].total = cartItems[menuID].quantity * menuPrice;
-            }
-            updateCart();
-        });
-    }
-
+    // Function to update cart display
     function updateCart() {
         cartItemsElement.innerHTML = '';
         cartSummaryElement.innerHTML = ''; // Clear previous summary
@@ -344,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 row.innerHTML = 
                     '<td>' + item.name + '</td>' +
                     '<td><select class="form-select item-quantity" data-id="' + menuID + '">' + options + '</select></td>' +
-                    '<td>Rs. ' + item.price + '</td>' +
+                    '<td>Rs. ' + item.price.toFixed(2) + '</td>' +
                     '<td>Rs. ' + item.total.toFixed(2) + '</td>' +
                     '<td><button class="btn btn-danger btn-sm remove-item" data-id="' + menuID + '">Remove</button></td>';
 
@@ -365,38 +379,95 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         var quantitySelectors = document.querySelectorAll('.item-quantity');
-        for (var i = 0; i < quantitySelectors.length; i++) {
-            quantitySelectors[i].addEventListener('change', function(e) {
-                var select = e.currentTarget;
-                var menuID = select.getAttribute('data-id');
-                var newQuantity = parseInt(select.value, 10);
+        quantitySelectors.forEach(function(select) {
+            select.addEventListener('change', function(e) {
+                var menuID = e.currentTarget.getAttribute('data-id');
+                var newQuantity = parseInt(e.currentTarget.value, 10);
                 cartItems[menuID].quantity = newQuantity;
                 cartItems[menuID].total = cartItems[menuID].price * newQuantity;
                 updateCart();
             });
-        }
+        });
 
         var removeButtons = document.querySelectorAll('.remove-item');
-        for (var i = 0; i < removeButtons.length; i++) {
-            removeButtons[i].addEventListener('click', function(e) {
+        removeButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
                 e.preventDefault();
-                var button = e.currentTarget;
-                var menuID = button.getAttribute('data-id');
+                var menuID = e.currentTarget.getAttribute('data-id');
                 delete cartItems[menuID];
                 updateCart();
             });
-        }
+        });
     }
-});
 
+    // Handle add to cart
+    var addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
 
-	document.addEventListener('DOMContentLoaded', function() {
-    	const filterButtons = document.querySelectorAll('.filter-btn');
-    	const menuItems = document.querySelectorAll('.menu-item');
+            // Check if the user is logged in
+            if (userId === -1) {
+                // User is not logged in, show the login modal
+                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
+                return; // Exit function if user is not logged in
+            }
 
-    	filterButtons.forEach(button => {
+            var menuID = button.getAttribute('data-id');
+            var menuName = button.getAttribute('data-name');
+            var menuPrice = parseFloat(button.getAttribute('data-price'));
+
+            if (!cartItems[menuID]) {
+                cartItems[menuID] = {
+                    name: menuName,
+                    price: menuPrice,
+                    quantity: 1,
+                    total: menuPrice
+                };
+            } else {
+                cartItems[menuID].quantity++;
+                cartItems[menuID].total = cartItems[menuID].quantity * menuPrice;
+            }
+            updateCart();
+        });
+    });
+
+ // Handle checkout
+    checkoutButton.addEventListener('click', function() {
+        if (Object.keys(cartItems).length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        var foodNamewithQT = Object.values(cartItems).map(item => item.name + '(' + item.quantity + ')').join(', ');
+        var totalPrice = Object.values(cartItems).reduce((sum, item) => sum + item.total, 0).toFixed(2);
+
+        // Get the current date and time in local time zone
+        var now = new Date();
+        var datetime = now.getFullYear() + '-' +
+                       String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                       String(now.getDate()).padStart(2, '0') + ' ' +
+                       String(now.getHours()).padStart(2, '0') + ':' +
+                       String(now.getMinutes()).padStart(2, '0') + ':' +
+                       String(now.getSeconds()).padStart(2, '0');
+
+        document.getElementById('hidden-foodNamewithQT').value = foodNamewithQT;
+        document.getElementById('hidden-totalPrice').value = totalPrice;
+        document.getElementById('hidden-datetime').value = datetime;
+
+        // Set the userIdp value
+        document.getElementById('hidden-userIdp').value = userId;
+
+        checkoutForm.submit();
+    });
+    // Handle filtering
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-        const category = this.getAttribute('data-category');
+            const category = this.getAttribute('data-category');
 
             menuItems.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
@@ -408,12 +479,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+</script>
 
-    </script>
-
-
-
- <!-- /Menu Section -->
+<!-- /Menu Section -->
     <!-- Specials Section -->
     <section id="specials" class="specials section">
 
@@ -516,10 +584,8 @@ document.addEventListener('DOMContentLoaded', function() {
     </section><!-- /Specials Section -->
 	
 	
-	<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Optional: Customize or initialize Bootstrap tabs if necessary
-  });
+<script>
+
 </script>
 
 	
@@ -594,6 +660,11 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     });
   });
+
+  
+document.addEventListener('DOMContentLoaded', function () {
+	    // Optional: Customize or initialize Bootstrap tabs if necessary
+	  });
 </script>
 
     <!-- Book A Table Section -->
@@ -1015,6 +1086,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+
+ <!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; overflow: hidden;">
+            <!-- Modal Header -->
+            <div class="modal-header" style="background-color: yellowgreen; color: whitesmoke;">
+                <h5 class="modal-title" id="loginModalLabel" style="font-weight: bold;">Please log in</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: whitesmoke;"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body p-4" style="background-color: #f9f9f9;">
+                <form action="login" method="post">
+                    <!-- Username Field -->
+                    <div class="form-group mb-3">
+                        <label for="username" style="font-weight: bold; color: #333;">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required 
+                               style="border-radius: 5px; border: 1px solid #ccc; padding: 10px; font-size: 1rem;">
+                    </div>
+                    <!-- Password Field -->
+                    <div class="form-group mb-4">
+                        <label for="password" style="font-weight: bold; color: #333;">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required 
+                               style="border-radius: 5px; border: 1px solid #ccc; padding: 10px; font-size: 1rem;">
+                    </div>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-block" 
+                            style="background-color: yellowgreen; color: whitesmoke; border: none; border-radius: 30px; padding: 10px; font-size: 1.1rem; font-weight: bold;">
+                        Login
+                    </button>
+                </form>
+                <!-- Sign-up Prompt -->
+                <div class="mt-4 text-center">
+                    <p style="font-size: 0.9rem; color: #666;">Haven't an account? <a href="#" style="color: yellowgreen; font-weight: bold;">Please sign up</a></p>
+                </div>
+            </div>
+            <!-- Error Message -->
+            <%
+                String errorMessage = (String) request.getAttribute("errorMessage");
+                if (errorMessage != null) {
+            %>
+            <div class="alert alert-danger mt-3 text-center" role="alert" style="margin: 0; border-radius: 0;">
+                <%= errorMessage %>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 
