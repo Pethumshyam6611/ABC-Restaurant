@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,11 +27,26 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS (including Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
-</head>
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  </head>
+
+
+
 
 <body class="index-page">
 
@@ -61,6 +78,10 @@
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+      <i class="bi bi-cart-fill" style="font-size: 1.5rem; color: yellowgreen;"></i>
+      <span class="badge bg-danger" id="cart-count">0</span>
+    </a>
         <a href="#book-a-table" class="btn" style="color: whitesmoke; background-color:yellowgreen; border-radius: 30px; border-radius: 0px;">Sign Up</a>
       </div>
 
@@ -84,42 +105,13 @@
             </div>
           </div>
         </div><!-- End Carousel Item -->
-
-        <div class="carousel-item">
-          <img src="assets/img/hero-carousel/top-view-table-full-delicious-food-composition.jpg" alt="">
-          <div class="carousel-container">
-            <h2>OUR MENU</h2>
-            <p>Enjoy a delicious variety of main courses, comforting soups, and irresistible desserts.severy dish is crafted with care using the finest ingredients. Whether you're here for a hearty meal or a sweet treat, we have something for everyone. Join us at ABC Restaurant for a memorable dining experience!rful pizzas and savory pastas. At ABC, every dish is crafted with care using the finest ingredients. We look forward to serving you!</p>
-            <div>
-              <a href="#menu" class="btn-get-started" style="border-radius: 0;">Explore Menu</a>
-            </div>
-          </div>
-        </div><!-- End Carousel Item -->
-
-        <div class="carousel-item">
-          <img src="assets/img/hero-carousel/photorealistic-wedding-venue-with-intricate-decor-ornaments.jpg" alt="">
-          <div class="carousel-container">
-            <h2>OUR FACILITIES</h2>
-            <p>We offer convenient reservation options and a private dining area for your special occasions. Relax in our welcoming space and let us provide a comfortable and enjoyable experience..</p>
-            <div>
-              <a href="#menu" class="btn-get-started" style="border-radius: 0;">Book Table</a>
-            </div>
-          </div>
-        </div><!-- End Carousel Item -->
-
-        <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-        </a>
-
-        <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-        </a>
-
-        <ol class="carousel-indicators"></ol>
-
       </div>
 
     </section><!-- /Hero Section -->
+    
+    
+    
+    
 <br>
 <br>
     <!-- About Section -->
@@ -127,12 +119,12 @@
 
       <div class="container">
 <!-- Section Title -->
-<div class="container section-title" data-aos="fade-up">
-  <hr style="width: 7%; height: 3px; background-color: #433f39; margin: 0 auto;">
-  <br>
-  <h1 style=" font-weight: 800;">ABOUT <span style=" color: yellowgreen">US</span></h1>
-  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
- of the Semantics,<br> a large language ocean.</p>
+			<div class="container section-title" data-aos="fade-up">
+  				<hr style="width: 7%; height: 3px; background-color: #433f39; margin: 0 auto;">
+ 				<br>
+  				<h1 style=" font-weight: 800;">ABOUT <span style=" color: yellowgreen">US</span></h1>
+  				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
+	 of the Semantics,<br> a large language ocean.</p>
 </div><!-- End Section Title -->
         <div class="row gy-4">
           <div class="row align-items-center" data-aos="fade-up" data-aos-delay="100" >
@@ -164,14 +156,16 @@
     <section id="why-us" class="why-us section" style=" background-color: yellowgreen;">
 
      <!-- Section Title -->
-<div class="container section-title" data-aos="fade-up">
-  <hr style="width: 7%; height: 3px; background-color: #ffffff; margin: 0 auto;">
-  <br>
-  <h1 style=" font-weight: 800;">OUR <span style="color: white;">SERVICES</span></span></h1>
-  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
- of the Semantics,<br> a large language ocean.</p>
-</div><!-- End Section Title -->
-      <div class="container">
+ <div class="container section-title" data-aos="fade-up">
+  	<hr style="width: 7%; height: 3px; background-color: #ffffff; margin: 0 auto;">
+  	<br>
+  	<h1 style=" font-weight: 800;">OUR <span style="color: white;">SERVICES</span></span></h1>
+  	<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
+ 	of the Semantics,<br> a large language ocean.</p>
+	</div><!-- End Section Title -->
+	
+	
+  <div class="container">
 
         <div class="row gy-4">
 
@@ -206,135 +200,220 @@
     </section><!-- /Why Us Section -->
 <br>
 <br>
-    <!-- Menu Section -->
-    <section id="menu" class="menu section">
-    
-    <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <hr style="width: 7%; height: 3px; background-color: #433f39; margin: 0 auto;">
-        <br>
-        <h1 style=" font-weight: 800;">OUR<span style=" color: yellowgreen">MENU</span></h1>
-        <div class="menut" style="display: flex; justify-content: flex-end;">
-          <form class="d-flex" role="search">
-            <input class="form-control me-2 my-input" type="search" placeholder="Search" aria-label="Search" style="outline: 2px solid yellowgreen; font-family: poppins;">
-              <button class="btn" type="submit" style="background-color: yellowgreen; color: white;">Search</button>
-          </form>
+<!-- Menu Section -->
+<section id="menu" class="menu section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <hr style="width: 7%; height: 3px; background-color: #433f39; margin: 0 auto;">
+    <br>
+    <h1 style=" font-weight: 800;">OUR<span style=" color: yellowgreen">MENU</span></h1>
+    <div class="menut" style="display: flex; justify-content: flex-end;">
+      <form class="d-flex" role="search">
+        <input id="searchInput" class="form-control me-2 my-input" type="search" placeholder="Search" aria-label="Search" style="outline: 2px solid yellowgreen; font-family: poppins;">
+        <button class="btn" type="button" style="background-color: yellowgreen; color: white;">Search</button>
+      </form>
     </div>
-      </div><!-- End Section Title -->
+  </div><!-- End Section Title -->
 
-      <div class="container isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul class="menu-filters isotope-filters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-starters">Starters</li>
-              <li data-filter=".filter-salads">Salads</li>
-              <li data-filter=".filter-specialty">Specialty</li>          
-            </ul>
-            <ul>
-            </ul>
+  <div class="container isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+    <section id="menu-filter" class="section py-5">
+      <div class="container">
+        <!-- Filter Buttons -->
+        <div class="row mb-4">
+          <div class="col text-center">
+            <button class="btn filter-btn" data-category="all" Style="Background-color:yellowgreen;color: white; border-radius:40px">All</button>
+            <button class="btn filter-btn" data-category="Main Course" Style="Background-color:yellowgreen;color: white; border-radius:40px">Main Course</button>
+            <button class="btn filter-btn" data-category="Drinks" Style="Background-color:yellowgreen;color: white; border-radius:40px">Drinks</button>
+            <button class="btn filter-btn" data-category="Dessert" Style="Background-color:yellowgreen;color: white; border-radius:40px">Dessert</button>
           </div>
-        </div><!-- Menu Filters -->
+        </div>
 
-        <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
+        <!-- Menu Items -->
+        <div id="popular-dishes" class="row">
+          <c:forEach var="menu" items="${menu}">
+            <div class="col-md-3 mb-4 menu-item" data-category="${menu.category}">
+              <div class="card shadow-sm text-center h-100">
+                <img src="${menu.image}" class="card-img-top img-fluid" alt="${menu.productName}" style="max-height: 200px; object-fit: cover;">
+                <div class="card-body">
+                  <h5 class="card-title">${menu.productName}</h5>
+                  <p class="font-weight-bold text-success">Rs.${menu.price}</p>
+                  <p class="card-text">${menu.description}</p>
+                  <button class="btn btn-primary add-to-cart" data-id="${menu.productID}" data-name="${menu.productName}" data-price="${menu.price}" style="background-color: #9ACD32; border-color: #9ACD32;">Add To Cart</button>
+                </div>
+              </div>
+            </div>
+          </c:forEach>
+        </div><!-- End Row -->
+      </div><!-- End Container -->
+    </section><!-- End Menu Filter Section -->
 
-          <div class="col-lg-6 menu-item isotope-item filter-starters">
-            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Lobster Bisque</a><span>$5.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div><!-- Menu Item -->
-
-          <div class="col-lg-6 menu-item isotope-item filter-specialty">
-            <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Bread Barrel</a><span>$6.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div><!-- Menu Item -->
-
-          <div class="col-lg-6 menu-item isotope-item filter-starters">
-            <img src="assets/img/menu/cake.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Crab Cake</a><span>$7.95</span>
-            </div>
-            <div class="menu-ingredients">
-              A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-            </div>
-          </div><!-- Menu Item -->
-
-          <div class="col-lg-6 menu-item isotope-item filter-salads">
-            <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Caesar Selections</a><span>$8.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div><!-- Menu Item -->
-
-          <div class="col-lg-6 menu-item isotope-item filter-specialty">
-            <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Tuscan Grilled</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Grilled chicken with provolone, artichoke hearts, and roasted red pesto
-            </div>
-          </div><!-- Menu Item -->
-
-          <div class="col-lg-6 menu-item isotope-item filter-starters">
-            <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Mozzarella Stick</a><span>$4.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div><!-- Menu Item -->
-
-          <div class="col-lg-6 menu-item isotope-item filter-salads">
-            <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Greek Salad</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Fresh spinach, crisp romaine, tomatoes, and Greek olives
-            </div>
-          </div><!-- Menu Item -->
-
-          <div class="col-lg-6 menu-item isotope-item filter-salads">
-            <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Spinach Salad</a><span>$9.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
-            </div>
-          </div><!-- Menu Item -->
-
-          <div class="col-lg-6 menu-item isotope-item filter-specialty">
-            <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#">Lobster Roll</a><span>$12.95</span>
-            </div>
-            <div class="menu-ingredients">
-              Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-            </div>
-          </div><!-- Menu Item -->
-
-        </div><!-- Menu Container -->
-
+  <!-- Cart Modal -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content border-0 rounded-3" style="background-color: #fff; color: #333;">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="cartModalLabel" style="color: #9ACD32;">Your Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead class="table-light" style="background-color: #9ACD32; color: white;">
+            <tr>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items">
+            <!-- Cart items will be dynamically loaded here -->
+          </tbody>
+        </table>
+        <h5 class="mt-3" style="color: #333;">Total: Rs. <span id="cart-total" style="color: #9ACD32;">0.00</span></h5>
+        <div id="cart-summary" class="mt-3">
+          <!-- Cart summary will be dynamically loaded here -->
+        </div>
+      </div>
+      <div class="modal-footer border-top-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #9ACD32; border-color: #9ACD32;">Close</button>
+        <a href="order?action=checkout" class="btn btn-primary" style="background-color: #9ACD32; border-color: #9ACD32;">Proceed to Checkout</a>
+      </div>
+    </div>
+  </div>
+</div><!-- End Cart Modal -->
 
-    </section><!-- /Menu Section -->
 
+
+  </div><!-- End Container -->
+</section><!-- End Menu Section -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var cartItems = {};
+    var cartCountElement = document.getElementById('cart-count');
+    var cartTotalElement = document.getElementById('cart-total');
+    var cartItemsElement = document.getElementById('cart-items');
+    var cartSummaryElement = document.getElementById('cart-summary');
+    
+    var addToCartButtons = document.querySelectorAll('.add-to-cart');
+    for (var i = 0; i < addToCartButtons.length; i++) {
+        addToCartButtons[i].addEventListener('click', function(e) {
+            e.preventDefault();
+            var button = e.currentTarget;
+            var menuID = button.getAttribute('data-id');
+            var menuName = button.getAttribute('data-name');
+            var menuPrice = parseFloat(button.getAttribute('data-price'));
+
+            if (!cartItems[menuID]) {
+                cartItems[menuID] = {
+                    name: menuName,
+                    price: menuPrice,
+                    quantity: 1,
+                    total: menuPrice
+                };
+            } else {
+                cartItems[menuID].quantity++;
+                cartItems[menuID].total = cartItems[menuID].quantity * menuPrice;
+            }
+            updateCart();
+        });
+    }
+
+    function updateCart() {
+        cartItemsElement.innerHTML = '';
+        cartSummaryElement.innerHTML = ''; // Clear previous summary
+        var total = 0;
+        var count = 0;
+        var summary = '';
+
+        for (var menuID in cartItems) {
+            if (cartItems.hasOwnProperty(menuID)) {
+                var item = cartItems[menuID];
+                total += item.total;
+                count += item.quantity;
+
+                var row = document.createElement('tr');
+                
+                // Generate options for quantity dropdown
+                var options = '';
+                for (var i = 1; i <= 10; i++) {
+                    options += '<option value="' + i + '"' + (item.quantity === i ? ' selected' : '') + '>' + i + '</option>';
+                }
+
+                row.innerHTML = 
+                    '<td>' + item.name + '</td>' +
+                    '<td><select class="form-select item-quantity" data-id="' + menuID + '">' + options + '</select></td>' +
+                    '<td>Rs. ' + item.price + '</td>' +
+                    '<td>Rs. ' + item.total.toFixed(2) + '</td>' +
+                    '<td><button class="btn btn-danger btn-sm remove-item" data-id="' + menuID + '">Remove</button></td>';
+
+                cartItemsElement.appendChild(row);
+
+                // Build the summary string
+                summary += item.name + ' (' + item.quantity + '), ';
+            }
+        }
+
+        cartCountElement.textContent = count;
+        cartTotalElement.textContent = total.toFixed(2);
+
+        // Display the summary of selected products
+        if (summary) {
+            summary = summary.slice(0, -2); // Remove trailing comma and space
+            cartSummaryElement.innerHTML = '<h5>Selected Products: ' + summary + '</h5>';
+        }
+
+        var quantitySelectors = document.querySelectorAll('.item-quantity');
+        for (var i = 0; i < quantitySelectors.length; i++) {
+            quantitySelectors[i].addEventListener('change', function(e) {
+                var select = e.currentTarget;
+                var menuID = select.getAttribute('data-id');
+                var newQuantity = parseInt(select.value, 10);
+                cartItems[menuID].quantity = newQuantity;
+                cartItems[menuID].total = cartItems[menuID].price * newQuantity;
+                updateCart();
+            });
+        }
+
+        var removeButtons = document.querySelectorAll('.remove-item');
+        for (var i = 0; i < removeButtons.length; i++) {
+            removeButtons[i].addEventListener('click', function(e) {
+                e.preventDefault();
+                var button = e.currentTarget;
+                var menuID = button.getAttribute('data-id');
+                delete cartItems[menuID];
+                updateCart();
+            });
+        }
+    }
+});
+
+
+	document.addEventListener('DOMContentLoaded', function() {
+    	const filterButtons = document.querySelectorAll('.filter-btn');
+    	const menuItems = document.querySelectorAll('.menu-item');
+
+    	filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+
+            menuItems.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.classList.remove('hidden'); // Show the item by removing the hidden class
+                } else {
+                    item.classList.add('hidden'); // Hide the item by adding the hidden class
+                }
+            });
+        });
+    });
+});
+
+    </script>
+
+
+
+ <!-- /Menu Section -->
     <!-- Specials Section -->
     <section id="specials" class="specials section">
 
@@ -435,120 +514,87 @@
       </div>
 
     </section><!-- /Specials Section -->
+	
+	
+	<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Optional: Customize or initialize Bootstrap tabs if necessary
+  });
+</script>
+
+	
+
 
     <!-- Events Section -->
-    <section id="events" class="events section">
+<section id="events" class="events section">
 
-      <img class="slider-bg" src="assets/img/events-bg.jpg" alt="" data-aos="fade-in">
+  <img class="slider-bg" src="assets/img/events-bg.jpg" alt="" data-aos="fade-in">
 
-      <div class="container">
+  <div class="container">
 
-        <div class="swiper init-swiper" data-aos="fade-up" data-aos-delay="100">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="row gy-4 event-item">
+    <div class="swiper init-swiper" data-aos="fade-up" data-aos-delay="100">
+      <script type="application/json" class="swiper-config">
+        {
+          "loop": true,
+          "speed": 600,
+          "autoplay": {
+            "delay": 5000
+          },
+          "slidesPerView": "auto",
+          "pagination": {
+            "el": ".swiper-pagination",
+            "type": "bullets",
+            "clickable": true
+          }
+        }
+      </script>
+     <div class="swiper-wrapper">
+    <c:forEach var="offer" items="${offers}">
+        <div class="swiper-slide">
+            <div class="row gy-4 event-item">
                 <div class="col-lg-6">
-                  <img src="assets/img/events-slider/events-slider-1.jpg" class="img-fluid" alt="">
+                    <img src="${offer.offerImg}" class="img-fluid" alt="${offer.title}">
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 content">
-                  <h3>Birthday Parties</h3>
-                  <div class="price">
-                    <p><span>$189</span></p>
-                  </div>
-                  <p class="fst-italic">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.
-                  </p>
-                  <ul>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                  </ul>
-                  <p>
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur
-                  </p>
+                    <h3>${offer.title}</h3>
+                    <div class="price">
+                        <p><span>${offer.price}</span></p>
+                    </div>
+                    <p class="fst-italic">
+                        ${offer.description}
+                    </p>
                 </div>
-              </div>
-            </div><!-- End Slider item -->
+            </div>
+        </div><!-- End Slider item -->
+    </c:forEach>
+</div>
 
-            <div class="swiper-slide">
-              <div class="row gy-4 event-item">
-                <div class="col-lg-6">
-                  <img src="assets/img/events-slider/events-slider-2.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="col-lg-6 pt-4 pt-lg-0 content">
-                  <h3>Private Parties</h3>
-                  <div class="price">
-                    <p><span>$290</span></p>
-                  </div>
-                  <p class="fst-italic">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.
-                  </p>
-                  <ul>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                  </ul>
-                  <p>
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur
-                  </p>
-                </div>
-              </div>
-            </div><!-- End Slider item -->
 
-            <div class="swiper-slide">
-              <div class="row gy-4 event-item">
-                <div class="col-lg-6">
-                  <img src="assets/img/events-slider/events-slider-3.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="col-lg-6 pt-4 pt-lg-0 content">
-                  <h3>Custom Parties</h3>
-                  <div class="price">
-                    <p><span>$99</span></p>
-                  </div>
-                  <p class="fst-italic">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.
-                  </p>
-                  <ul>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                  </ul>
-                  <p>
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur
-                  </p>
-                </div>
-              </div>
-            </div><!-- End Slider item -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section><!-- End Events Section -->
 
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
 
-      </div>
 
-    </section><!-- /Events Section -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    var swiper = new Swiper('.swiper', {
+      loop: true,
+      speed: 600,
+      autoplay: {
+        delay: 5000,
+      },
+      slidesPerView: 'auto',
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true,
+      },
+    });
+  });
+</script>
 
     <!-- Book A Table Section -->
     <section id="book-a-table" class="book-a-table section">

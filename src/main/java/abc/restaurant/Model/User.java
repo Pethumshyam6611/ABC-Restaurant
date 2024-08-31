@@ -40,7 +40,12 @@ public class User {
         this.password = password;
  
     }
-   
+    public User(int userId, String username, String email, int phone) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+    }
 
     public User() {
     }

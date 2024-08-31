@@ -13,10 +13,12 @@ public class OderService {
     private static OderService instance;
     private OderDAO oderDAO;
 
+    // Private constructor to enforce singleton pattern
     private OderService() {
         oderDAO = new OderDAO();
     }
 
+    // Get the singleton instance of OderService
     public static OderService getInstance() {
         if (instance == null) {
             instance = new OderService();
@@ -29,9 +31,9 @@ public class OderService {
         oderDAO.addOder(oder);
     }
 
-    // Retrieve all orders
-    public List<Oder> getAllOders() throws SQLException {
-        return oderDAO.getAllOders();
+    // Retrieve all orders with user details
+    public List<Oder> getAllOdersWithUsers() throws SQLException {
+        return oderDAO.getAllOdersWithUsers();
     }
 
     // Retrieve an order by its ID

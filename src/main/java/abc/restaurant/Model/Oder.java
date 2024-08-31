@@ -1,42 +1,43 @@
 package abc.restaurant.Model;
 
+/**
+ * Model class representing an Oder in the restaurant system.
+ */
 public class Oder {
     private int oderId;
-    private int productId;
+    private String foodNamewithQT;
     private int userIdp;
     private String type;
     private double totalPrice;
     private String status;
+    private String datetime;
 
-    // Default constructor
-    public Oder() {}
+    // Field to store associated User details
+    private User userDetails;
 
-    // Parameterized constructor
-    public Oder(int oderId, int productId, int userIdp, String type, double totalPrice, String status) {
+    // Constructor without user details
+    public Oder(int oderId, String foodNamewithQT, int userIdp, String type, double totalPrice, String status, String datetime) {
         this.oderId = oderId;
-        this.productId = productId;
+        this.foodNamewithQT = foodNamewithQT;
         this.userIdp = userIdp;
         this.type = type;
         this.totalPrice = totalPrice;
         this.status = status;
+        this.datetime = datetime;
     }
-    // Parameterized constructor
-    public Oder(int oderId, int productId, int userIdp, String type, String status) {
+
+    // Constructor with user details
+    public Oder(int oderId, String foodNamewithQT, int userIdp, String type, double totalPrice, String status, String datetime, User userDetails) {
         this.oderId = oderId;
-        this.productId = productId;
+        this.foodNamewithQT = foodNamewithQT;
         this.userIdp = userIdp;
         this.type = type;
+        this.totalPrice = totalPrice;
         this.status = status;
+        this.datetime = datetime;
+        this.userDetails = userDetails;
     }
-    // Parameterized constructor
-    public Oder(int oderId, int productId, int userIdp,String status) {
-        this.oderId = oderId;
-        this.productId = productId;
-        this.userIdp = userIdp;
-        this.status = status;
-    }
-    
-    
+
     // Getters and Setters
     public int getOderId() {
         return oderId;
@@ -46,12 +47,12 @@ public class Oder {
         this.oderId = oderId;
     }
 
-    public int getProductId() {
-        return productId;
+    public String getFoodNamewithQT() {
+        return foodNamewithQT;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setFoodNamewithQT(String foodNamewithQT) {
+        this.foodNamewithQT = foodNamewithQT;
     }
 
     public int getUserIdp() {
@@ -84,5 +85,21 @@ public class Oder {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public User getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(User userDetails) {
+        this.userDetails = userDetails;
     }
 }
