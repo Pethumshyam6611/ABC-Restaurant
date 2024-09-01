@@ -801,13 +801,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div><!-- End Gallery Item -->
 
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-8.jpg" class="glightbox" data-gallery="images-gallery">
-                <img src="assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div><!-- End Gallery Item -->
+        
 
         </div>
 
