@@ -99,7 +99,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
         </nav>
           <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
       <i class="bi bi-cart-fill" style="font-size: 1.5rem; color: white;"></i>
-      <span class="badge bg-danger" id="cart-count">0</span>
+      <span class="badge bg-danger" id="cart-count" style="background-color: yellowgreen  !important;">0</span>
     <a href="#" id="signup-button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" style="color: whitesmoke; background-color: yellowgreen; border-radius: 5px;">
     <% if (username != null && !username.isEmpty()) { %>
         Wellcome, <%= username %>
@@ -321,7 +321,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
     </section>
     
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     // Assuming userId is obtained from the session in your JSP and set in a JavaScript variable
     var userId = <%= (userId != null) ? userId : -1 %>; // Replace this with actual user ID, or -1 if not logged in
 
@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cartCountElement.textContent = count;
         cartTotalElement.textContent = total.toFixed(2);
 
-        // Display the summary of selected products
+      // Display the summary of selected products
         if (summary) {
             summary = summary.slice(0, -2); // Remove trailing comma and space
             cartSummaryElement.innerHTML = '<h5>Selected Products: ' + summary + '</h5>';
@@ -461,6 +461,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         checkoutForm.submit();
     });
+ 
+ 
     // Handle filtering
     const filterButtons = document.querySelectorAll('.filter-btn');
     const menuItems = document.querySelectorAll('.menu-item');
