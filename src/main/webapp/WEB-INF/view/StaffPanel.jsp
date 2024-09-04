@@ -16,7 +16,6 @@
         }
         .container {
             margin-top: 50px;
-            text-align: center;
         }
         h1 {
             margin-bottom: 50px;
@@ -56,14 +55,33 @@
         a.text-decoration-none:hover {
             color: #d1f56d; /* Yellow-green hover effect */
         }
+        .navbar {
+            background-color: #343a40; /* Dark navbar */
+            color: white;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Staff Panel</a>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="logout" class="btn btn-danger">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <h1>Staff Panel Dashboard</h1>
-        
 
-      <!-- Second Row: 3 Cards -->
+        <!-- Card Deck -->
         <div class="card-deck">
             <!-- Reservation Card -->
             <a href="reservations?action=list" class="card text-decoration-none col-md-4">
@@ -71,12 +89,11 @@
                     <h2 class="card-title">Reservation</h2>
                 </div>
             </a>
-            <!-- Oder Card -->
-            <a href="oders?action=list" class="card text-decoration-none col-md-4">
+            <!-- Order Card -->
+            <a href="oder?action=list" class="card text-decoration-none col-md-4">
                 <div class="card-body">
-                    <h2 class="card-title">Oder List</h2>
+                    <h2 class="card-title">Order List</h2>
                 </div>
-            </a>
             </a>
             <!-- Payment Card -->
             <a href="payments?action=list" class="card text-decoration-none col-md-4">
@@ -85,7 +102,7 @@
                 </div>
             </a>
         </div>
-      </div>
+    </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

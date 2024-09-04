@@ -37,8 +37,8 @@ public class ReservationService {
     }
 
     // Method to retrieve all reservations
-    public List<Reservation> getAllReservations() throws SQLException {
-        return reservationDAO.getAllReservations();
+    public List<Reservation> getAllReservationsWithUsers() throws SQLException {
+        return reservationDAO.getAllReservationsWithUsers();
     }
 
     // Method to retrieve a reservation by its ID

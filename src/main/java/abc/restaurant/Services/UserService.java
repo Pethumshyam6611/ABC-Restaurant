@@ -58,6 +58,10 @@ public class UserService {
     public User authenticateUser(String username, String password) throws SQLException {
         return userDAO.authenticate(username, password);
     }
+    
+    public boolean isEmailOrPhoneExists(String email, int phone) throws SQLException {
+        return userDAO.isEmailOrPhoneExists(email, phone);
+    }
 
     // Additional methods for specific business logic can be added here
     // For example, user authentication or role-based access control

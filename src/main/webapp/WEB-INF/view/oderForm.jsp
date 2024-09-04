@@ -55,6 +55,7 @@
     <div class="container">
         <h2>Order Form</h2>
         <form action="oder" method="post">
+        <input type="hidden" name="source" value="addForm">
             <input type="hidden" name="action" value="new">
             <div class="form-group">
                 <label for="foodNamewithQT">Food Name with Quantity</label>

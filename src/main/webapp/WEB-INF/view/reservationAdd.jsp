@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="serviceType">Service Type</label>
-                <input type="text" class="form-control" id="serviceType" name="serviceType" value="${reservation.serviceType}" required>
+                <input type="text" class="form-control" id="message" name="message" value="${reservation.message}" required>
             </div>
             <div class="form-group">
                 <label for="date">Date</label>

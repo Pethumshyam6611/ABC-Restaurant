@@ -1,6 +1,7 @@
 package abc.restaurant.Dao;
 
 import abc.restaurant.Model.Reservation;
+import abc.restaurant.Model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class ReservationDAO {
 
     // Add a new reservation
     public void addReservation(Reservation reservation) {
-        String query = "INSERT INTO reservations (userid, service_type, date, time, number_of_people, status) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO reservations (userid, message, date, time, number_of_people, status) VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -29,7 +30,7 @@ public class ReservationDAO {
             connection = getConnection(); // Obtain a connection
             statement = connection.prepareStatement(query); // Prepare the SQL query
             statement.setInt(1, reservation.getUserId()); // Set parameters
-            statement.setString(2, reservation.getServiceType());
+            statement.setString(2, reservation.getMessage());
             statement.setString(3, reservation.getDate());
             statement.setString(4, reservation.getTime());
             statement.setInt(5, reservation.getNumberOfPeople());
@@ -46,22 +47,27 @@ public class ReservationDAO {
         }
     }
 
-    // Retrieve all reservations
-    public List<Reservation> getAllReservations() throws SQLException {
+    // Retrieve all reservations with user details
+    public List<Reservation> getAllReservationsWithUsers() throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM reservations ORDER BY reservationid DESC"; // Make sure the table name matches your database schema
+        String query = "SELECT r.reservationid, r.userid, r.message, r.date, r.time, r.number_of_people, r.status, "
+                     + "u.username, u.email, u.phone "
+                     + "FROM reservations r "
+                     + "JOIN user u ON r.userid = u.userid "
+                     + "ORDER BY r.reservationid DESC";
 
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
             connection = getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                reservations.add(mapResultSetToReservation(resultSet));
+                Reservation reservation = mapResultSetToReservationWithUser(resultSet);
+                reservations.add(reservation);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -72,6 +78,7 @@ public class ReservationDAO {
 
         return reservations;
     }
+
 
     // Retrieve a reservation by its ID
     public Reservation getReservationById(int reservationId) {
@@ -106,7 +113,7 @@ public class ReservationDAO {
 
     // Update an existing reservation
     public void updateReservation(Reservation reservation) {
-        String query = "UPDATE reservations SET userid = ?, service_type = ?, date = ?, time = ?, number_of_people = ?, status = ? WHERE reservationid = ?";
+        String query = "UPDATE reservations SET userid = ?, message = ?, date = ?, time = ?, number_of_people = ?, status = ? WHERE reservationid = ?";
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -114,7 +121,7 @@ public class ReservationDAO {
             connection = getConnection();
             statement = connection.prepareStatement(query);
             statement.setInt(1, reservation.getUserId());
-            statement.setString(2, reservation.getServiceType());
+            statement.setString(2, reservation.getMessage());
             statement.setString(3, reservation.getDate());
             statement.setString(4, reservation.getTime());
             statement.setInt(5, reservation.getNumberOfPeople());
@@ -154,16 +161,40 @@ public class ReservationDAO {
         }
     }
 
+
     // Map the ResultSet to a Reservation object
     private Reservation mapResultSetToReservation(ResultSet rs) throws SQLException {
         int reservationId = rs.getInt("reservationid");
         int userId = rs.getInt("userid");
-        String serviceType = rs.getString("service_type");
+        String message = rs.getString("message");
         String date = rs.getString("date");
         String time = rs.getString("time");
         int numberOfPeople = rs.getInt("number_of_people");
         String status = rs.getString("status");
 
-        return new Reservation(reservationId, userId, serviceType, date, time, numberOfPeople, status);
+        return new Reservation(reservationId, userId, message, date, time, numberOfPeople, status);
     }
+
+    // Map the ResultSet to a Reservation object with user details
+    private Reservation mapResultSetToReservationWithUser(ResultSet rs) throws SQLException {
+        int reservationId = rs.getInt("reservationid");
+        int userId = rs.getInt("userid");
+        String message = rs.getString("message");
+        String date = rs.getString("date");
+        String time = rs.getString("time");
+        int numberOfPeople = rs.getInt("number_of_people");
+        String status = rs.getString("status");
+
+        // User details
+        String username = rs.getString("username");
+        String email = rs.getString("email");
+        int phone = rs.getInt("phone");
+
+        Reservation reservation = new Reservation(reservationId, userId, message, date, time, numberOfPeople, status);
+        User user = new User(userId, username, email, phone);
+        reservation.setUserDetails(user);
+
+        return reservation;
+    }
+
 }

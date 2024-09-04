@@ -104,4 +104,22 @@ public class UserDAO {
         }
         return null;
     }
+    // Check if email or phone number already exists
+    public boolean isEmailOrPhoneExists(String email, int phone) throws SQLException {
+        String query = "SELECT COUNT(*) FROM user WHERE email = ? OR phone = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            stmt.setInt(2, phone);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    
+    
+    
 }

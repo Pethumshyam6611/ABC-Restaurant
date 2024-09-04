@@ -15,8 +15,8 @@
                 <input type="text" class="form-control" id="userId" name="userId" required>
             </div>
             <div class="form-group">
-                <label for="serviceType">Service Type</label>
-                <input type="text" class="form-control" id="serviceType" name="serviceType" required>
+                <label for="serviceType">Message</label>
+                <input type="text" class="form-control" id="message" name="message" required>
             </div>
             <div class="form-group">
                 <label for="date">Date</label>

@@ -6,21 +6,27 @@ package abc.restaurant.Model;
 public class Reservation {
     private int reservationId;
     private int userId;
-    private String serviceType;
+    private String message;
     private String date;
     private String time;
     private int numberOfPeople;
     private String status;
 
+    
+    // User details for when you retrieve the reservation with user info
+    private User userDetails;
+    
+    
+    
     // Default constructor
     public Reservation() {
     }
 
     // Parameterized constructor
-    public Reservation(int reservationId, int userId, String serviceType, String date, String time, int numberOfPeople, String status) {
+    public Reservation(int reservationId, int userId, String message, String date, String time, int numberOfPeople, String status) {
         this.reservationId = reservationId;
         this.userId = userId;
-        this.serviceType = serviceType;
+        this.message = message;
         this.date = date;
         this.time = time;
         this.numberOfPeople = numberOfPeople;
@@ -28,10 +34,10 @@ public class Reservation {
     }
 
     // Parameterized constructor
-    public Reservation(int reservationId, int userId, String serviceType, String date, String time, String status) {
+    public Reservation(int reservationId, int userId, String message, String date, String time, String status) {
         this.reservationId = reservationId;
         this.userId = userId;
-        this.serviceType = serviceType;
+        this.message = message;
         this.date = date;
         this.time = time;
         this.status = status;
@@ -40,7 +46,7 @@ public class Reservation {
     public Reservation(int reservationId, int userId, String serviceType, String date, String status) {
         this.reservationId = reservationId;
         this.userId = userId;
-        this.serviceType = serviceType;
+        this.message = serviceType;
         this.date = date;
         this.status = status;
     }
@@ -49,7 +55,7 @@ public class Reservation {
     public Reservation(int reservationId, int userId, String serviceType,String status) {
         this.reservationId = reservationId;
         this.userId = userId;
-        this.serviceType = serviceType;
+        this.message = serviceType;
         this.status = status;
     }
     
@@ -76,12 +82,12 @@ public class Reservation {
         this.userId = userId;
     }
 
-    public String getServiceType() {
-        return serviceType;
+    public String getMessage() {
+        return message;
     }
 
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getDate() {
@@ -115,4 +121,13 @@ public class Reservation {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    public User getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(User userDetails) {
+        this.userDetails = userDetails;
+    }
+    
 }

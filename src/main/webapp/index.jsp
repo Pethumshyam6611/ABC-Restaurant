@@ -49,17 +49,17 @@
 
 
 <body class="index-page">
-<% // Retrieve user ID from session
+<% 
 Integer userId = (Integer) session.getAttribute("userId");%>
 
 <%
-    // Retrieve the username from the session
+    
     String username = (String) session.getAttribute("username");
 
 %>
 
 	<script>
-    	// Make the user ID available to JavaScript
+    	
     		var userId = <%= userId %>;
     		
 	</script>
@@ -89,26 +89,35 @@ Integer userId = (Integer) session.getAttribute("userId");%>
             <li><a href="#hero" class="active">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#menu">Menu</a></li>
-            <li><a href="#specials">Specials</a></li>
-            <li><a href="#events">Facilities</a></li>
-            <li><a href="#chefs">Chefs</a></li>
-            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#events">Offers</a></li>
+            <li><a href="#facilities">Facilities</a></li>
+            <li><a href="#gallery">Gallery</a></li> 
             <li><a href="#contact">Contact</a></li>
+            
+            
+            
+            
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-          <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+      <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
       <i class="bi bi-cart-fill" style="font-size: 1.5rem; color: white;"></i>
       <span class="badge bg-danger" id="cart-count" style="background-color: yellowgreen  !important;">0</span>
-    <a href="#" id="signup-button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" style="color: whitesmoke; background-color: yellowgreen; border-radius: 5px;">
-    <% if (username != null && !username.isEmpty()) { %>
+      <a href="#" id="signup-button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" style="color: whitesmoke; background-color: yellowgreen; border-radius: 5px;">
+      <% if (username != null && !username.isEmpty()) { %>
         Wellcome, <%= username %>
-    <% } else { %>
+      <% } else { %>
         Sign Up
-    <% } %>
-    </a>
+      <% } %>
+      </a>
+      <% if (username != null && !username.isEmpty()) { %>
+                        <!-- Logout Button -->
+      <a href="logout?fromPage=mainPage" class="btn btn-outline-danger" style="color: whitesmoke; background-color: red; border-radius: 5px; margin-left: 10px;">
+       Logout
+      </a>
+      <% } %>  
       </div>
-
+	 
     </div>
   </header>
 
@@ -135,10 +144,10 @@ Integer userId = (Integer) session.getAttribute("userId");%>
     
     
     
-    
 <br>
 <br>
-<!-- About Section -->
+
+<!-- About Us Section -->
 <section id="about" class="about section light-background">
 
       <div class="container">
@@ -147,9 +156,8 @@ Integer userId = (Integer) session.getAttribute("userId");%>
   				<hr style="width: 7%; height: 3px; background-color: #433f39; margin: 0 auto;">
  				<br>
   				<h1 style=" font-weight: 800;">ABOUT <span style=" color: yellowgreen">US</span></h1>
-  				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
-	            of the Semantics,<br> a large language ocean.</p>
-            </div><!-- End Section Title -->
+  				<p>Welcome to our restaurant, where exceptional dining meets a memorable experience.<br> Located in a cozy setting, we offer a diverse menu of freshly made dishes.Our dedicated staff ensures attentive service and a welcoming atmosphere.</p>
+        </div><!-- End Section Title -->
         <div class="row gy-4">
           <div class="row align-items-center" data-aos="fade-up" data-aos-delay="100" >
             <div class="col-lg-4">
@@ -171,49 +179,48 @@ Integer userId = (Integer) session.getAttribute("userId");%>
           </div>
         </div>
       </div>
-
-    </section><!-- /About Section -->
+</section>
+<!-- /About Section -->
 
     <br>
     <br>
-    <!-- Why Us Section -->
+    
+<!-- Services Section -->
     <section id="why-us" class="why-us section" style=" background-color: yellowgreen;">
-
      <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
   	<hr style="width: 7%; height: 3px; background-color: #ffffff; margin: 0 auto;">
   	<br>
   	<h1 style=" font-weight: 800;">OUR <span style="color: white;">SERVICES</span></span></h1>
-  	<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
- 	of the Semantics,<br> a large language ocean.</p>
-	</div><!-- End Section Title -->
+  	<p>At our restaurant, we offer a diverse menu of freshly prepared dishes, attentive service, and an elegant atmosphere.<br> Whether for a special occasion or a casual meal, we aim to make your dining experience memorable.</p>	
+  	</div><!-- End Section Title -->
 	
 	
     <div class="container">
 
         <div class="row gy-4">
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100" Style="background-color: yellow";>
             <div class="card-item">
               <span>01</span>
-              <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
-              <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p>
+              <h4><a href="" class="stretched-link">Exquisite Cuisine</a></h4>
+              <p>Indulge in a culinary journey with our handpicked selection of mouth-watering dishes, crafted to perfection by our top chefs.</p>
             </div>
           </div><!-- Card Item -->
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200" Style="background-color: yellow";>
             <div class="card-item">
               <span>02</span>
-              <h4><a href="" class="stretched-link">Repellat Nihil</a></h4>
-              <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire leno para dest</p>
+              <h4><a href="" class="stretched-link">Elegant Dining Ambiance</a></h4>
+              <p>Experience dining like never before in our beautifully designed spaces, where every meal is a celebration of good taste.</p>
             </div>
           </div><!-- Card Item -->
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300" Style="background-color: yellow";>
             <div class="card-item">
               <span>03</span>
-              <h4><a href="" class="stretched-link">Ad ad velit qui</a></h4>
-              <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis</p>
+              <h4><a href="" class="stretched-link">Exclusive Services</a></h4>
+              <p>We offer more than just food,enjoy our personalized services, tailored to create memorable experiences for every guest.</p>
             </div>
           </div><!-- Card Item -->
 
@@ -221,12 +228,16 @@ Integer userId = (Integer) session.getAttribute("userId");%>
 
       </div>
 
-    </section><!-- /Why Us Section -->
+    </section>
+<!-- /Services Section -->
 <br>
 <br>
+
+
 <!-- Menu Section -->
 <section id="menu" class="menu section">
-  <!-- Section Title -->
+
+<!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
     <hr style="width: 7%; height: 3px; background-color: #433f39; margin: 0 auto;">
     <br>
@@ -237,8 +248,8 @@ Integer userId = (Integer) session.getAttribute("userId");%>
         <button class="btn" type="button" style="background-color: yellowgreen; color: white;">Search</button>
       </form>
     </div>
-  </div><!-- End Section Title -->
-
+  </div>
+  <!-- End Section Title -->
   <div class="container isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
     <section id="menu-filter" class="section py-5">
       <div class="container">
@@ -255,7 +266,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
         <!-- Menu Items -->
         <div id="popular-dishes" class="row">
           <c:forEach var="menu" items="${menu}">
-            <div class="col-md-3 mb-4 menu-item" data-category="${menu.category}">
+            <div class="col-md-3 mb-2 menu-item" data-category="${menu.category}">
               <div class="card shadow-sm text-center h-100">
                 <img src="${menu.image}" class="card-img-top img-fluid" alt="${menu.productName}" style="max-height: 200px; object-fit: cover;">
                 <div class="card-body">
@@ -271,7 +282,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
       </div><!-- End Container -->
     </section><!-- End Menu Filter Section -->
 
-      <!-- Cart Modal -->
+<!-- Cart Modal -->
         <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content border-0 rounded-3" style="background-color: #fff; color: #333;">
@@ -306,9 +317,10 @@ Integer userId = (Integer) session.getAttribute("userId");%>
                 </div>
             </div>
         </div>
-
+		
         <!-- Hidden Checkout Form -->
         <form id="checkout-form" action="oder" method="post" style="display: none;">
+        	<input type="hidden" name="source" value="mainPage">
             <input type="hidden" name="action" value="new">
             <input type="hidden" name="foodNamewithQT" id="hidden-foodNamewithQT">
             <input type="hidden" name="userIdp" value="6" id="hidden-userIdp">
@@ -433,7 +445,6 @@ Integer userId = (Integer) session.getAttribute("userId");%>
         });
     });
 
- // Handle checkout
     checkoutButton.addEventListener('click', function() {
         if (Object.keys(cartItems).length === 0) {
             alert("Your cart is empty!");
@@ -452,14 +463,26 @@ Integer userId = (Integer) session.getAttribute("userId");%>
                        String(now.getMinutes()).padStart(2, '0') + ':' +
                        String(now.getSeconds()).padStart(2, '0');
 
+        // Set hidden form fields
         document.getElementById('hidden-foodNamewithQT').value = foodNamewithQT;
         document.getElementById('hidden-totalPrice').value = totalPrice;
         document.getElementById('hidden-datetime').value = datetime;
-
-        // Set the userIdp value
         document.getElementById('hidden-userIdp').value = userId;
 
-        checkoutForm.submit();
+        // Populate the Thank You Modal with order details
+        document.getElementById('order-summary').innerHTML = Object.values(cartItems).map(item => 
+            '<p>' + item.name + ' (Quantity: ' + item.quantity + ') - Rs. ' + item.total.toFixed(2) + '</p>'
+        ).join('');
+        document.getElementById('thank-you-total').textContent = totalPrice;
+
+        // Show the Thank You Modal
+        var thankYouModal = new bootstrap.Modal(document.getElementById('thankYouModal'));
+        thankYouModal.show();
+
+        // Submit the order form after the modal is closed
+        thankYouModal._element.addEventListener('hidden.bs.modal', function() {
+            checkoutForm.submit();
+        });
     });
  
  
@@ -482,121 +505,43 @@ Integer userId = (Integer) session.getAttribute("userId");%>
     });
 });
 </script>
-
+</section>
 <!-- /Menu Section -->
-    <!-- Specials Section -->
-    <section id="specials" class="specials section">
+    
+    
+<!-- /Faciity Section -->
+<section id="facilities" class="facilities section py-5"  style=" background-color: yellowgreen" >
+    <!-- Section Title -->
+			<div class="container section-title" data-aos="fade-up">
+  				<hr style="width: 7%; height: 3px; background-color: #433f39; margin: 0 auto;">
+ 				<br>
+  				<h1 style=" font-weight: 800;">OUR<span style=" color: white">FACILITIES</span></h1>
+  				<p>Explore the unique facilities we offer to enhance your dining experience.</p>
+        </div><!-- End Section Title -->
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Specials</h2>
-        <div><span>Check Our</span> <span class="description-title">Specials</span></div>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row">
-          <div class="col-lg-3">
-            <ul class="nav nav-tabs flex-column">
-              <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" href="#specials-tab-1">Modi sit est</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-2">Unde praesentium sed</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-3">Pariatur explicabo vel</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-4">Nostrum qui quasi</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-5">Iusto ut expedita aut</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-9 mt-4 mt-lg-0">
-            <div class="tab-content">
-              <div class="tab-pane active show" id="specials-tab-1">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Architecto ut aperiam autem id</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-1.jpg" alt="" class="img-fluid">
-                  </div>
+   <div class="container">
+    <div class="row">
+        <c:forEach var="facility" items="${facility}">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow facility-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="${facility.facilityImg}" class="card-img-top" alt="${facility.facilityName}">
+                    <div class="card-body">
+                        <h5 class="card-title">${facility.facilityName}</h5>
+                        <p class="card-text">${facility.description}</p>
+                    </div>
                 </div>
-              </div>
-              <div class="tab-pane" id="specials-tab-2">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Et blanditiis nemo veritatis excepturi</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-2.jpg" alt="" class="img-fluid">
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="specials-tab-3">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
-                    <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                    <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-3.jpg" alt="" class="img-fluid">
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="specials-tab-4">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                    <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
-                    <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-4.jpg" alt="" class="img-fluid">
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="specials-tab-5">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                    <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                    <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-5.jpg" alt="" class="img-fluid">
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /Specials Section -->
-	
-	
-<script>
-
-</script>
-
-	
+        </c:forEach>
+    </div>
+</div>
+</section>
+<!-- /Facilities Section -->
 
 
-    <!-- Events Section -->
+    <!-- Offer Section -->
 <section id="events" class="events section">
 
-  <img class="slider-bg" src="assets/img/events-bg.jpg" alt="" data-aos="fade-in">
+  <img class="slider-bg" src="assets/img/people-enjoying-mexican-barbecue.jpg" alt="" data-aos="fade-in" Style="width: 100%">
 
   <div class="container">
 
@@ -617,7 +562,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
         }
       </script>
      <div class="swiper-wrapper">
-    <c:forEach var="offer" items="${offers}">
+     <c:forEach var="offer" items="${offers}">
         <div class="swiper-slide">
             <div class="row gy-4 event-item">
                 <div class="col-lg-6">
@@ -626,7 +571,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
                 <div class="col-lg-6 pt-4 pt-lg-0 content">
                     <h3>${offer.title}</h3>
                     <div class="price">
-                        <p><span>${offer.price}</span></p>
+                        <p><span>Rs.${offer.price}</span></p>
                     </div>
                     <p class="fst-italic">
                         ${offer.description}
@@ -634,17 +579,13 @@ Integer userId = (Integer) session.getAttribute("userId");%>
                 </div>
             </div>
         </div><!-- End Slider item -->
-    </c:forEach>
-</div>
+     </c:forEach>
+     </div>
 
 
       <div class="swiper-pagination"></div>
     </div>
   </div>
-</section><!-- End Events Section -->
-
-
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 
@@ -664,72 +605,93 @@ Integer userId = (Integer) session.getAttribute("userId");%>
   });
 
   
-document.addEventListener('DOMContentLoaded', function () {
+ document.addEventListener('DOMContentLoaded', function () {
 	    // Optional: Customize or initialize Bootstrap tabs if necessary
 	  });
-</script>
+</script>  
+</section>
+<!-- End Offer Section -->
 
-    <!-- Book A Table Section -->
-    <section id="book-a-table" class="book-a-table section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+<!-- Book A Table Section -->
+<section id="book-a-table" class="book-a-table section" style="background-color: #f7f7f7; padding: 50px 0;">
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up" style="text-align: center;">
         <hr style="width: 7%; height: 3px; background-color: #433f39; margin: 0 auto;">
         <br>
-        <h1 style=" font-weight: 800;">BOOK A <span style=" color: yellowgreen">TABLE</span></h1>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
-          of the Semantics,<br> a large language ocean.</p>
-      </div><!-- End Section Title -->
+        <h1 style="font-weight: 800; font-size: 2.5rem; color: #333;">BOOK A <span style="color: yellowgreen;">TABLE</span></h1>
+        <p style="color: #666; font-size: 1.1rem; margin-top: 10px;">
+             Find a cozy spot in our restaurant, perfect for any meal. Book a table and enjoy great food in a friendly setting.<br> 
+    			Reserve your place now and have a wonderful dining experience.
+        </p>
+    </div><!-- End Section Title -->
 
-      <div class="container">
-
+    <div class="container" style="background-color: #fff; box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden;">
         <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4 reservation-img" style="background-image: url('assets/img/open-book-with-natural-element.jpg'); background-size: cover; background-position: center;"></div>
 
-          <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
+            <div class="col-lg-8 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200" style="padding: 40px;">
+                <form action="reservations?action=new" method="post" id="bookTableForm" style="width: 100%;">
+                    <!-- Hidden input to store the user ID -->
+                    <input type="hidden" id="userId" name="userId" value="<%= session.getAttribute("userId") != null ? session.getAttribute("userId").toString() : "-1" %>">
+                    <input type="hidden" name="source" value="mainPage">
+                    <!-- Hidden input to set the status to "pending" -->
+                    <input type="hidden" name="status" value="pending">
 
-          <div class="col-lg-8 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
-            <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
-              <div class="row gy-4">
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="date" name="date" class="form-control" id="date" placeholder="Date" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="time" class="form-control" name="time" id="time" placeholder="Time" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="number" class="form-control" name="people" id="people" placeholder="# of people" required="">
-                </div>
-              </div>
+                    <div class="row gy-4">
+                        <div class="col-lg-4 col-md-6">
+                            <input type="date" name="date" class="form-control" id="date" placeholder="Date" required style="padding: 10px; font-size: 1rem; border-radius: 4px; border: 2px solid yellowgreen;">
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <input type="time" class="form-control" name="time" id="time" placeholder="Time" required style="padding: 10px; font-size: 1rem; border-radius: 4px; border: 2px solid yellowgreen;">
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <input type="number" class="form-control" name="numberOfPeople" id="numberOfPeople" placeholder="Number of Peoples" required style="padding: 10px; font-size: 1rem; border-radius: 4px;border: 2px solid yellowgreen;">
+                        </div>
+                    </div>
 
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
-              </div>
+                    <div class="form-group mt-3">
+                        <textarea class="form-control" name="message" rows="5" placeholder="Message" style="padding: 10px; font-size: 1rem; border-radius: 4px; border: 2px solid yellowgreen;"></textarea>
+                    </div>
 
-              <div class="text-center mt-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
-                <button type="submit">Book a Table</button>
-              </div>
-            </form>
-          </div><!-- End Reservation Form -->
-
+                    <div class="text-center mt-3">
+                        <button type="submit" id="bookTableButton" style="background-color: yellowgreen; color: #fff; padding: 12px 30px; border: none; border-radius: 4px; font-size: 1.2rem; cursor: pointer; transition: background-color 0.3s;">
+                            Book a Table
+                        </button>
+                    </div>
+                    <%-- Display success message --%>
+                    <% String successMessage = (String) request.getAttribute("successMessage"); %>
+                    <% if (successMessage != null) { %>
+                        <div class="alert alert-success" role="alert" style="margin-top: 20px; font-size: 1rem;">
+                            <%= successMessage %>
+                        </div>
+                    <% } %>
+                </form>
+            </div><!-- End Reservation Form -->
         </div>
+    </div>
+    <script>
+	document.addEventListener('DOMContentLoaded', function() {
+    var bookTableButton = document.getElementById('bookTableButton');
+    var userId = document.getElementById('userId').value;
 
-      </div>
+    bookTableButton.addEventListener('click', function(e) {
+        // Check if the user is logged in
+        if (userId === "-1") {
+            e.preventDefault(); // Prevent the form from submitting
 
-    </section><!-- /Book A Table Section -->
+            // Show the login modal
+            var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            loginModal.show();
+        } else {
+            // Allow form submission if the user is logged in
+        }
+    });
+});
+</script>
+</section><!-- /Book A Table Section -->
 
-    <!-- Gallery Section -->
+
+<!-- Gallery Section -->
     <section id="gallery" class="gallery section" style="background-color: yellowgreen;">
 
       <!-- Section Title -->
@@ -737,56 +699,20 @@ document.addEventListener('DOMContentLoaded', function () {
         <hr style="width: 7%; height: 3px; background-color: #ffffff; margin: 0 auto;">
         <br>
         <h1 style=" font-weight: 800;">GA<span style="color: white;">LLERY</span></span></h1>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
-       of the Semantics,<br> a large language ocean.</p>
+        <p>Explore our gallery to see the highlights of our restaurant through captivating images.</p>
       </div><!-- End Section Title -->
 
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row g-0">
-
+		<c:forEach var="gallery" items="${gallery}">
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-1.jpg" class="glightbox" data-gallery="images-gallery">
-                <img src="assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
+                <img src="${gallery.galleryImg}" alt="" class="img-fluid" style="width: 600px; height: 200px;">
               </a>
             </div>
           </div><!-- End Gallery Item -->
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-2.jpg" class="glightbox" data-gallery="images-gallery">
-                <img src="assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-3.jpg" class="glightbox" data-gallery="images-gallery">
-                <img src="assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-4.jpg" class="glightbox" data-gallery="images-gallery">
-                <img src="assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-5.jpg" class="glightbox" data-gallery="images-gallery">
-                <img src="assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div><!-- End Gallery Item -->
-
-        
-
+		</c:forEach>     
         </div>
 
       </div>
@@ -794,199 +720,134 @@ document.addEventListener('DOMContentLoaded', function () {
     </section><!-- /Gallery Section -->
 <br>
 <br>
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section dark-background">
+<!-- Contact Section -->
+<section id="contact" class="contact section" style="padding: 60px 0; background-color: #f9f9f9;">
 
-      <img src="assets/img/testimonials-bg.jpg" class="testimonials-bg" alt="">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up" style="text-align: center;">
+    <hr style="width: 7%; height: 3px; background-color: #ffffff; margin: 0 auto;">
+    <br>
+    <h1 style="font-weight: 800; color: #333;">
+      CONTACT<span style="color: yellowgreen;"> US</span>
+    </h1>
+    <p style="color: #666; font-size: 1.1rem;">
+      Connect with us at ABC Restaurant. For reservations, inquiries, or feedback, we are here to make every interaction delightful. Reach out to enhance your dining experience with our exceptional service and personalized attention.
+    </p>
+  </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+  <div class="container" data-aos="fade">
+    <div class="row gy-5 gx-lg-5">
 
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              }
-            }
-          </script>
-      
-          <div class="swiper-pagination"></div>
-        </div>
+      <div class="col-lg-4">
+        <div class="info" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <h3 style="font-size: 1.5rem; color: #333;">Get in touch</h3>
+          <p style="color: #666; font-size: 1.1rem;">Reach out to us for reservations, inquiries, or feedback. We're here to help!</p>
 
-      </div>
-
-    </section><!-- /Testimonials Section -->
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-
-       <!-- Section Title -->
-       <div class="container section-title" data-aos="fade-up">
-        <hr style="width: 7%; height: 3px; background-color: #ffffff; margin: 0 auto;">
-        <br>
-        <h1 style=" font-weight: 800;">CONTACT<span style="color: yellowgreen;">US</span></span></h1>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,there live the blind texts.<br> Separated they live in Bookmarksgrove right at the coast   
-       of the Semantics,<br> a large language ocean.</p>
-      </div><!-- End Section Title -->
-      
-      <div class="container" data-aos="fade">
-
-        <div class="row gy-5 gx-lg-5">
-
-          <div class="col-lg-4">
-
-            <div class="info">
-              <h3>Get in touch</h3>
-              <p>Et id eius voluptates atque nihil voluptatem enim in tempore minima sit ad mollitia commodi minus.</p>
-
-              <div class="info-item d-flex">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                <div>
-                  <h4>Location:</h4>
-                  <p>A108 Adam Street, New York, NY 535022</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex">
-                <i class="bi bi-envelope flex-shrink-0"></i>
-                <div>
-                  <h4>Email:</h4>
-                  <p>info@example.com</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex">
-                <i class="bi bi-phone flex-shrink-0"></i>
-                <div>
-                  <h4>Call:</h4>
-                  <p>+1 5589 55488 55</p>
-                </div>
-              </div><!-- End Info Item -->
-
+          <div class="info-item d-flex" style="margin-bottom: 15px;">
+            <i class="bi bi-geo-alt flex-shrink-0" style="font-size: 1.5rem; color: yellowgreen; margin-right: 10px;"></i>
+            <div>
+              <h4 style="margin-bottom: 5px; color: #333;">Location:</h4>
+              <p style="color: #666;">Maithripala Senanayake Mawatha<br>Anuradhapura</p>
             </div>
+          </div><!-- End Info Item -->
 
-          </div>
+          <div class="info-item d-flex" style="margin-bottom: 15px;">
+            <i class="bi bi-envelope flex-shrink-0" style="font-size: 1.5rem; color: yellowgreen; margin-right: 10px;"></i>
+            <div>
+              <h4 style="margin-bottom: 5px; color: #333;">Email:</h4>
+              <p style="color: #666;">abcrestaurant22@gmail.com</p>
+            </div>
+          </div><!-- End Info Item -->
 
-          <div class="col-lg-8">
-            <form action="" method="post" role="form" class="p">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" placeholder="Message" required=""></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-          </div><!-- End Contact Form -->
+          <div class="info-item d-flex" style="margin-bottom: 15px;">
+            <i class="bi bi-phone flex-shrink-0" style="font-size: 1.5rem; color: yellowgreen; margin-right: 10px;"></i>
+            <div>
+              <h4 style="margin-bottom: 5px; color: #333;">Call:</h4>
+              <p style="color: #666;">0772910692</p>
+            </div>
+          </div><!-- End Info Item -->
 
         </div>
-
       </div>
 
-    </section><!-- /Contact Section -->
+      <div class="col-lg-8">
+        <form action="contact" method="post" role="form" class="p-4" style="background: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required style="border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required style="border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required style="border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+          <div class="form-group mt-3">
+            <textarea class="form-control" name="message" placeholder="Message" required style="border: 1px solid #ddd; border-radius: 4px;"></textarea>
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" style="background-color: yellowgreen; border: none; color: white; padding: 10px 20px; border-radius: 4px; font-size: 1rem;">Send Message</button>
+          </div>
+        </form>
+      </div><!-- End Contact Form -->
 
+    </div>
+  </div>
+</section>
+<!-- /Contact Section -->
   </main>
 
-  <footer id="footer" class="footer dark-background">
+ <footer id="footer" class="footer bg-dark text-white py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Address Section -->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h4 class="text-uppercase mb-3">Address</h4>
+        <p><i class="bi bi-geo-alt me-2"></i>Maithripala Senanayake Mawatha</p>
+        <p>Anuradhapura</p>
+      </div>
 
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div class="address">
-            <h4>Address</h4>
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p></p>
-          </div>
+      <!-- Contact Section -->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h4 class="text-uppercase mb-3">Contact</h4>
+        <p><i class="bi bi-telephone me-2"></i><strong>Phone:</strong> 0772910692</p>
+        <p><i class="bi bi-envelope me-2"></i><strong>Email:</strong> abcrestaurant22@gmail.com</p>
+      </div>
 
+      <!-- Opening Hours Section -->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h4 class="text-uppercase mb-3">Opening Hours</h4>
+        <p><i class="bi bi-clock me-2"></i><strong>Mon-Sat:</strong> 9AM - 11PM</p>
+        <p><strong>Sunday:</strong> Closed</p>
+      </div>
+
+      <!-- Follow Us Section -->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h4 class="text-uppercase mb-3">Follow Us</h4>
+        <div class="d-flex">
+          <a href="#" class="me-3 text-white"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="me-3 text-white"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="me-3 text-white"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
         </div>
-
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Contact</h4>
-            <p>
-              <strong>Phone:</strong> <span>+1 5589 55488 55</span><br>
-              <strong>Email:</strong> <span>info@example.com</span><br>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>
-              <strong>Mon-Sat:</strong> <span>11AM - 23PM</span><br>
-              <strong>Sunday</strong>: <span>Closed</span>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <h4>Follow Us</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
       </div>
     </div>
+  </div>
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">ABC Restaurant</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        Designed by <a href="www.linkedin.com/in/pethum-srilal-a7417a2b1">Pethum Shyam</a>
-      </div>
-    </div>
+  <div class="container mt-4 text-center">
+    <p class="mb-0">&copy; <span>Copyright</span> <strong class="px-1">ABC Restaurant</strong> <span>All Rights Reserved</span></p>
+    <p class="mb-0">Designed by <a href="https://www.linkedin.com/in/pethum-srilal-a7417a2b1" class="text-white">Pethum Shyam</a></p>
+  </div>
+</footer>
 
-  </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
  
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
 
 
- <!-- Login Modal -->
+
+
+<!--Modals -->
+<!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="border-radius: 20px; overflow: hidden;">
@@ -997,7 +858,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <!-- Modal Body -->
             <div class="modal-body p-4" style="background-color: #f9f9f9;">
-                <form action="login" method="post">
+                <form action="customer-login" method="post">
                     <!-- Username Field -->
                     <div class="form-group mb-3">
                         <label for="username" style="font-weight: bold; color: #333;">Username</label>
@@ -1016,20 +877,115 @@ document.addEventListener('DOMContentLoaded', function () {
                         Login
                     </button>
                 </form>
+
+                <!-- Error Message -->
+                <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
+                <% if (errorMessage != null) { %>
+                    <div class="alert alert-danger mt-3 text-center" role="alert" style="margin: 0; border-radius: 0;">
+                        <%= errorMessage %>
+                    </div>
+                    <script>
+                        // Reopen the login modal if there was an error
+                        var myModal = new bootstrap.Modal(document.getElementById('loginModal'), {});
+                        myModal.show();
+                    </script>
+                <% } %>
+                
                 <!-- Sign-up Prompt -->
                 <div class="mt-4 text-center">
-                    <p style="font-size: 0.9rem; color: #666;">Haven't an account? <a href="#" style="color: yellowgreen; font-weight: bold;">Please sign up</a></p>
+                  <p style="font-size: 0.9rem; color: #666;">
+                   Haven't an account? 
+    			  <a href="#" style="color: yellowgreen; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#registerModal">
+       			  Please sign up
+                  </a>
+				</p>
                 </div>
             </div>
-            <!-- Error Message -->
-            <%
-                String errorMessage = (String) request.getAttribute("errorMessage");
-                if (errorMessage != null) {
-            %>
-            <div class="alert alert-danger mt-3 text-center" role="alert" style="margin: 0; border-radius: 0;">
-                <%= errorMessage %>
+        </div>
+    </div>
+</div>
+
+
+<!-- Customer Registration Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; overflow: hidden;">
+            <!-- Modal Header -->
+            <div class="modal-header" style="background-color: yellowgreen; color: whitesmoke;">
+                <h5 class="modal-title" id="registerModalLabel" style="font-weight: bold;">Register</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: whitesmoke;"></button>
             </div>
-            <% } %>
+            <!-- Modal Body -->
+            <div class="modal-body p-4" style="background-color: #f9f9f9;">
+            
+                <form action="user" method="post">
+                    <input type="hidden" name="action" value="add"/>
+
+                    <!-- Username Field -->
+                    <div class="form-group mb-3">
+                        <label for="username" style="font-weight: bold; color: #333;">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required 
+                               style="border-radius: 5px; border: 1px solid #ccc; padding: 10px; font-size: 1rem;">
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group mb-3">
+                        <label for="password" style="font-weight: bold; color: #333;">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required 
+                               style="border-radius: 5px; border: 1px solid #ccc; padding: 10px; font-size: 1rem;">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group mb-3">
+                        <label for="email" style="font-weight: bold; color: #333;">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required 
+                               style="border-radius: 5px; border: 1px solid #ccc; padding: 10px; font-size: 1rem;">
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="form-group mb-3">
+                        <label for="phone" style="font-weight: bold; color: #333;">Phone</label>
+                      <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" require pattern="\d{10}" maxlength="10" title="Please enter exactly 10 digits" style="border-radius: 5px; border: 1px solid #ccc; padding: 10px; font-size: 1rem;">
+
+                    </div>
+					
+					<% String registrationErrorMessage = (String) request.getAttribute("errorMessage"); %>
+					<% if (registrationErrorMessage != null) { %>
+    				<div class="alert alert-danger"><%= registrationErrorMessage %></div>
+						<% } %>
+						
+                    <!-- Hidden Role Field -->
+                    <input type="hidden" name="role" value="Customer"/>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-block" 
+                            style="background-color: yellowgreen; color: whitesmoke; border: none; border-radius: 30px; padding: 10px; font-size: 1.1rem; font-weight: bold;">
+                        Register
+                    </button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Thank You Modal -->
+<div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 300px; margin: auto;">
+        <div class="modal-content" style="border: none; border-radius: 12px; background-color: #fff; color: #333;">
+            <div class="modal-header" style="border-bottom: 1px solid #e0e0e0; background-color: #f7f7f7;">
+                <h5 class="modal-title" id="thankYouModalLabel" style="color: #9ACD32; font-weight: bold; font-size: 1.25rem;">Thank You for Your Order!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p>Your order has been successfully placed. Here are the details:</p>
+                <div id="order-summary" style="margin-bottom: 1rem;">
+                    <!-- Order summary will be dynamically loaded here -->
+                </div>
+                <h5 class="mt-3" style="color: #333;">Total: Rs. <span id="thank-you-total" style="color: #9ACD32;">0.00</span></h5>
+            </div>
+            <div class="modal-footer" style="border-top: none; justify-content: center;">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #9ACD32; border-color: #9ACD32;">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -1038,19 +994,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+ <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <!-- Preloader -->
+  <div id="preloader"></div>
 
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+ 
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-
-
-
-
-
-
-
-
-
-
+<!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
 
 </body>
 

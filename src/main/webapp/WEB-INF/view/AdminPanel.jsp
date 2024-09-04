@@ -11,135 +11,151 @@
     <style>
         body {
             background-color: #d1f56d; /* Yellow-green background */
-            color: #fff; /* White text */
+            color: #333; /* Dark text for contrast */
             font-family: 'Arial', sans-serif;
         }
         .container {
             margin-top: 50px;
-            text-align: center;
         }
         h1 {
-            margin-bottom: 50px;
-            font-size: 3rem;
-            color: #fff; /* White color for the header */
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: #343a40; /* Dark grey color for the header */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            text-align: center;
         }
         .card-deck {
             margin-top: 20px;
         }
         .card {
-            background-color: #fff; /* White background for cards */
             border: none;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             margin: 15px;
             color: #343a40; /* Dark grey text */
         }
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
         .card-body {
-            padding: 1.5rem;
+            padding: 2rem;
             text-align: center;
         }
         .card-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         a.text-decoration-none {
-            color: #343a40; /* Dark grey text for links */
             text-decoration: none;
         }
         a.text-decoration-none:hover {
-            color: #d1f56d; /* Yellow-green hover effect */
+            text-decoration: none;
+        }
+        .navbar {
+            background-color: #343a40; /* Dark navbar */
+            color: white;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
         }
     </style>
 </head>
 <body>
+
+   <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <a class="navbar-brand" href="#">Admin Panel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="oder?action=downloadPdf" class="btn btn-primary mr-2">Download Annual Sales Report</a>
+            </li>
+            <li class="nav-item">
+                <a href="reservations?action=generatePDF" class="btn btn-primary mr-2">Download Reservations Report</a>
+            </li>
+            <li class="nav-item">
+                <a href="logout" class="btn btn-danger">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
     <div class="container">
         <h1>Admin Panel Dashboard</h1>
-        
-        <!-- First Row: 4 Cards -->
-        <div class="card-deck">
-            <!-- Menu Card -->
-            <a href="menu?action=list" class="card text-decoration-none col-md-3">
-                <div class="card-body">
-                    <h2 class="card-title">Menu</h2>
-                </div>
-            </a>
-            <!-- Users Card -->
-            <a href="user?action=list" class="card text-decoration-none col-md-3">
-                <div class="card-body">
-                    <h2 class="card-title">Users</h2>
-                </div>
-            </a>
-            <!-- Facility Card -->
-            <a href="facility?action=list" class="card text-decoration-none col-md-3">
-                <div class="card-body">
-                    <h2 class="card-title">Facility</h2>
-                </div>
-            </a>
-            <!-- Offer Card -->
-            <a href="offer?action=list" class="card text-decoration-none col-md-3">
-                <div class="card-body">
-                    <h2 class="card-title">Offer</h2>
-                </div>
-            </a>
+        <!-- First Row: 3 Cards -->
+        <div class="row">
+            <div class="col-md-4">
+                <a href="menu?action=list" class="card text-decoration-none">
+                    <div class="card-body">
+                        <h2 class="card-title">Menu Manager</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="user?action=list" class="card text-decoration-none">
+                    <div class="card-body">
+                        <h2 class="card-title">User Manager</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="facility?action=list" class="card text-decoration-none">
+                    <div class="card-body">
+                        <h2 class="card-title">Facility Manager</h2>
+                    </div>
+                </a>
+            </div>
         </div>
 
         <!-- Second Row: 3 Cards -->
-        <div class="card-deck">
-            <!-- Reservation Card -->
-            <a href="reservations?action=list" class="card text-decoration-none col-md-4">
-                <div class="card-body">
-                    <h2 class="card-title">Reservation list</h2>
-                </div>
-            </a>
-             <!-- Reservation Card -->
-            <a href="reservations?action=new" class="card text-decoration-none col-md-4">
-                <div class="card-body">
-                    <h2 class="card-title">Add Reservations</h2>
-                </div>
-            </a>
-            <!-- Oder Card -->
-            <a href="oders?action=list" class="card text-decoration-none col-md-4">
-                <div class="card-body">
-                    <h2 class="card-title">Oder List</h2>
-                </div>
-            </a>
-                  <!-- Oder Card -->
-            <a href="oders?action=new" class="card text-decoration-none col-md-4">
-                <div class="card-body">
-                    <h2 class="card-title">Add Oder</h2>
-                </div>
-            </a>
-            <!-- Payment Card -->
-            <a href="payments?action=list" class="card text-decoration-none col-md-4">
-                <div class="card-body">
-                    <h2 class="card-title">Payment</h2>
-                </div>
-            </a>
-             <!-- Payment Card -->
-            <a href="payments?action=new" class="card text-decoration-none col-md-4">
-                <div class="card-body">
-                    <h2 class="card-title">Payment</h2>
-                </div>
-            </a>
-            
-            
-            <a href="gallery?action=list" class="card text-decoration-none col-md-4">
-                <div class="card-body">
-                    <h2 class="card-title">Gallery List</h2>
-                </div>
-            </a>
-             <a href="gallery?action=add" class="card text-decoration-none col-md-4">
-                <div class="card-body">
-                    <h2 class="card-title">Add Gallery</h2>
-                </div>
-            </a>
+        <div class="row">
+            <div class="col-md-4">
+                <a href="offer?action=list" class="card text-decoration-none">
+                    <div class="card-body">
+                        <h2 class="card-title">Offer Manager</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="reservations?action=list" class="card text-decoration-none">
+                    <div class="card-body">
+                        <h2 class="card-title">Reservation Manager</h2>
+                    </div>
+                </a>
+            </div>
+             <div class="col-md-4">
+                <a href="oder?action=list" class="card text-decoration-none">
+                    <div class="card-body">
+                        <h2 class="card-title">Order Manager</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Third Row: 4 Cards -->
+        <div class="row">
+           
+            <div class="col-md-4">
+                <a href="payments?action=list" class="card text-decoration-none">
+                    <div class="card-body">
+                        <h2 class="card-title">Payment Manager</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="gallery?action=list" class="card text-decoration-none">
+                    <div class="card-body">
+                        <h2 class="card-title">Gallery Manager</h2>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 

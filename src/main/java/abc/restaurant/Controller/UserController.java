@@ -78,24 +78,54 @@ public class UserController extends HttpServlet {
         String password = request.getParameter("password");
         String role = request.getParameter("role");
         String email = request.getParameter("email");
-        int phone = Integer.parseInt(request.getParameter("phone"));
-
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRole(role);
-        user.setEmail(email);
-        user.setPhone(phone);
+        String phoneStr = request.getParameter("phone");
+        
+        int phone = 0;
+        try {
+            phone = Integer.parseInt(phoneStr);
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Invalid phone number format.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
 
         try {
+            if (userService.isEmailOrPhoneExists(email, phone)) {
+                // Check if the role is Customer and redirect accordingly
+                if ("Customer".equals(role)) {
+                    request.getSession().setAttribute("errorMessage", "Email or phone number already in use.");
+                    response.sendRedirect("mainPage");
+                } else {
+                    request.setAttribute("errorMessage", "Email or phone number already in use.");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+                    dispatcher.forward(request, response);
+                }
+                return;
+            }
+
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setRole(role);
+            user.setEmail(email);
+            user.setPhone(phone);
+
             userService.addUser(user);
-            response.sendRedirect("user?action=list");
+
+            if ("Customer".equals(role)) {
+                response.sendRedirect("mainPage");
+            } else {
+                response.sendRedirect("user?action=list");
+            }
         } catch (SQLException e) {
             request.setAttribute("errorMessage", "Error adding user: " + e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
             dispatcher.forward(request, response);
         }
     }
+
+
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
