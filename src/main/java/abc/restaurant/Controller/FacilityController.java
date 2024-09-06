@@ -70,25 +70,25 @@ public class FacilityController extends HttpServlet {
     private void listFacilities(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Facility> facilityList = new ArrayList<>();
         try {
-            // Fetch the list of all facilities from the service
+            
             facilityList = facilityService.getAllFacilities();
             
-            // Log the size of the facility list for debugging
+            
             System.out.println("Number of facilities retrieved: " + facilityList.size());
 
-            // Set the list of facilities as a request attribute
+          
             request.setAttribute("facilities", facilityList);
 
-            // Forward the request to the FacilityDashboard.jsp page
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/FacilityDashboard.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException e) {
-            // Handle SQL exceptions and set the error message
+            
             request.setAttribute("errorMessage", "Database error: " + e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
-            // Handle other exceptions
+           
             request.setAttribute("errorMessage", "Error: " + e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
             dispatcher.forward(request, response);

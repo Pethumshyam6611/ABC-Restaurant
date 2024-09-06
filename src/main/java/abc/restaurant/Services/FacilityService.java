@@ -6,9 +6,7 @@ import abc.restaurant.Model.Facility;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Service class for managing facilities.
- */
+
 public class FacilityService {
 	
 	private static FacilityService instance;

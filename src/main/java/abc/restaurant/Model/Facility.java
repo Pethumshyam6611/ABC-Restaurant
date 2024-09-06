@@ -5,13 +5,13 @@ public class Facility {
     private int facilityId;
     private String facilityName;
     private String description;
-    private String facilityImg; // Assuming this is a URL or file path to the image
+    private String facilityImg; 
 
-    // Default constructor
+   
     public Facility() {
     }
 
-    // Parameterized constructor
+  
     public Facility(int facilityId, String facilityName, String description, String facilityImg) {
         this.facilityId = facilityId;
         this.facilityName = facilityName;
@@ -31,7 +31,7 @@ public class Facility {
 
     }
 
- // Getter and Setter for FacilityId
+
     public int getFacilityId() {
         return facilityId;
     }

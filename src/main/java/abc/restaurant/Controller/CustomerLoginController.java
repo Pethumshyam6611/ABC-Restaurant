@@ -24,19 +24,19 @@ public class CustomerLoginController extends HttpServlet {
         try {
             User user = userService.authenticateUser(username, password);
             if (user != null && "Customer".equals(user.getRole())) {
-                // Authentication successful
+                
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("userId", user.getUserId());
                 request.getSession().setAttribute("username", user.getUsername());
                 response.sendRedirect("mainPage");
             } else {
-                // Authentication failed
+                
                 request.getSession().setAttribute("errorMessage", "Invalid username or password");
                 response.sendRedirect("mainPage");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("/error.jsp"); // Redirect to an error page in case of exception
+            response.sendRedirect("/error.jsp"); 
         }
     }
 }

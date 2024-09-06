@@ -157,7 +157,7 @@ public class MenuController extends HttpServlet {
 		                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/editMenu.jsp");
 		                dispatcher.forward(request, response);
 		            } else {
-		                // Handle case where the menu ID does not exist
+		               
 		                request.setAttribute("errorMessage", "Menu item not found.");
 		                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
 		                dispatcher.forward(request, response);
@@ -179,55 +179,55 @@ public class MenuController extends HttpServlet {
 		    }
 		}
 		private void updateMenu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    // Retrieve menu item details from request parameters
+		   
 		    int menuId = Integer.parseInt(request.getParameter("id"));
 		    String name = request.getParameter("name");
 		    String description = request.getParameter("description");
 		    double price = Double.parseDouble(request.getParameter("price"));
 		    String category = request.getParameter("category");
 
-		    // Retrieve the image part from the request
+		    
 		    Part imagePart = request.getPart("image");
-		    String imageUrl = null;  // Default image URL to null
+		    String imageUrl = null;  
 
-		    // Fetch the existing menu item
+		    
 		    Menu existingMenu = menuService.getMenuById(menuId);
 
 		    if (existingMenu == null) {
-		        // Handle case where menu item does not exist
+		        
 		        request.setAttribute("errorMessage", "Menu item not found.");
 		        request.getRequestDispatcher("WEB-INF/view/error.jsp").forward(request, response);
 		        return;
 		    }
 
-		    // Get the old image URL
+		    
 		    String oldImageUrl = existingMenu.getImage();
 
-		    // Define the upload directory
+		   
 		    String uploadPath = getUploadPath();
 		    File uploadDir = new File(uploadPath);
 
-		    // Ensure the upload directory exists
+		    
 		    if (!uploadDir.exists()) {
 		        uploadDir.mkdirs();
 		    }
 
 		    if (imagePart != null && imagePart.getSize() > 0) {
-		        // New image is being uploaded
+		        
 		        String imageFileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
 		        File newImageFile = new File(uploadPath + File.separator + imageFileName);
 
 		        try {
-		            // Save the new image file
+		            
 		            imagePart.write(newImageFile.getAbsolutePath());
-		            imageUrl = "images/" + imageFileName;  // Set the new image URL
+		            imageUrl = "images/" + imageFileName;  
 		            System.out.println("Uploaded new image to: " + newImageFile.getAbsolutePath());
 		        } catch (IOException e) {
 		            e.printStackTrace();
 		            throw new ServletException("File upload failed.");
 		        }
 
-		        // Delete the old image file if it exists
+		        
 		        if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
 		            File oldImageFile = new File(uploadPath + File.separator + Paths.get(oldImageUrl).getFileName());
 		            if (oldImageFile.exists()) {
@@ -242,11 +242,11 @@ public class MenuController extends HttpServlet {
 		            }
 		        }
 		    } else {
-		        // No new image is uploaded, retain the old image URL
+		       
 		        imageUrl = oldImageUrl;
 		    }
 
-		    // Update the menu item with the new image URL
+		    
 		    Menu updatedMenu = new Menu();
 		    updatedMenu.setProductID(menuId);
 		    updatedMenu.setCategory(category);

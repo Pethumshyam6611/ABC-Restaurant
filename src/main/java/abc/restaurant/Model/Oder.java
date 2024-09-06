@@ -1,8 +1,6 @@
 package abc.restaurant.Model;
 
-/**
- * Model class representing an Oder in the restaurant system.
- */
+
 public class Oder {
     private int oderId;
     private String foodNamewithQT;
@@ -12,10 +10,10 @@ public class Oder {
     private String status;
     private String datetime;
 
-    // Field to store associated User details
+   
     private User userDetails;
 
-    // Constructor without user details
+    
     public Oder(int oderId, String foodNamewithQT, int userIdp, String type, double totalPrice, String status, String datetime) {
         this.oderId = oderId;
         this.foodNamewithQT = foodNamewithQT;
@@ -26,7 +24,7 @@ public class Oder {
         this.datetime = datetime;
     }
 
-    // Constructor with user details
+    
     public Oder(int oderId, String foodNamewithQT, int userIdp, String type, double totalPrice, String status, String datetime, User userDetails) {
         this.oderId = oderId;
         this.foodNamewithQT = foodNamewithQT;
@@ -38,7 +36,7 @@ public class Oder {
         this.userDetails = userDetails;
     }
 
-    // Getters and Setters
+ 
     public int getOderId() {
         return oderId;
     }

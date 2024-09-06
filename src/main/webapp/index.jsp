@@ -54,15 +54,19 @@ Integer userId = (Integer) session.getAttribute("userId");%>
 
 <%
     
-    String username = (String) session.getAttribute("username");
+ String username = (String) session.getAttribute("username"); 
+ String email = (String) session.getAttribute("email");
 
 %>
 
-	<script>
+<% 
+%>
+	
+<script>
     	
     		var userId = <%= userId %>;
     		
-	</script>
+</script>
 	
 	
 	
@@ -200,7 +204,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
 
         <div class="row gy-4">
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100" Style="background-color: yellow";>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100";>
             <div class="card-item">
               <span>01</span>
               <h4><a href="" class="stretched-link">Exquisite Cuisine</a></h4>
@@ -208,7 +212,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
             </div>
           </div><!-- Card Item -->
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200" Style="background-color: yellow";>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200";>
             <div class="card-item">
               <span>02</span>
               <h4><a href="" class="stretched-link">Elegant Dining Ambiance</a></h4>
@@ -216,7 +220,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
             </div>
           </div><!-- Card Item -->
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300" Style="background-color: yellow";>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300";>
             <div class="card-item">
               <span>03</span>
               <h4><a href="" class="stretched-link">Exclusive Services</a></h4>
@@ -278,9 +282,10 @@ Integer userId = (Integer) session.getAttribute("userId");%>
               </div>
             </div>
           </c:forEach>
-        </div><!-- End Row -->
-      </div><!-- End Container -->
-    </section><!-- End Menu Filter Section -->
+        </div>
+      </div>
+    </section>
+<!-- End Menu Filter Section -->
 
 <!-- Cart Modal -->
         <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
@@ -505,7 +510,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
     });
 });
 </script>
-</section>
+
 <!-- /Menu Section -->
     
     
@@ -517,7 +522,8 @@ Integer userId = (Integer) session.getAttribute("userId");%>
  				<br>
   				<h1 style=" font-weight: 800;">OUR<span style=" color: white">FACILITIES</span></h1>
   				<p>Explore the unique facilities we offer to enhance your dining experience.</p>
-        </div><!-- End Section Title -->
+        </div>
+      <!-- End Section Title -->
 
    <div class="container">
     <div class="row">
@@ -538,7 +544,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
 <!-- /Facilities Section -->
 
 
-    <!-- Offer Section -->
+<!-- Offer Section -->
 <section id="events" class="events section">
 
   <img class="slider-bg" src="assets/img/people-enjoying-mexican-barbecue.jpg" alt="" data-aos="fade-in" Style="width: 100%">
@@ -717,7 +723,8 @@ Integer userId = (Integer) session.getAttribute("userId");%>
 
       </div>
 
-    </section><!-- /Gallery Section -->
+    </section>
+<!-- /Gallery Section -->
 <br>
 <br>
 <!-- Contact Section -->
@@ -768,7 +775,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
           </div><!-- End Info Item -->
 
         </div>
-      </div>
+  	 </div>
 
       <div class="col-lg-8">
         <form action="contact" method="post" role="form" class="p-4" style="background: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
@@ -994,7 +1001,7 @@ Integer userId = (Integer) session.getAttribute("userId");%>
 
 
 
- <!-- Scroll Top -->
+  <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->

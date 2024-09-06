@@ -5,17 +5,17 @@ public class Gallery {
 	 private int galleryId;
 	    private String galleryImg;
 
-	    // Default constructor
+	   
 	    public Gallery() {
 	    }
 
-	    // Parameterized constructor
+	    
 	    public Gallery(int galleryId, String galleryImg) {
 	        this.galleryId = galleryId;
 	        this.galleryImg = galleryImg;
 	    }
 
-	    // Getters and Setters
+	   
 	    public int getGalleryId() {
 	        return galleryId;
 	    }

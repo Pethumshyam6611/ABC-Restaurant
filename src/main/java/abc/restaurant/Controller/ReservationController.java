@@ -1,14 +1,17 @@
 package abc.restaurant.Controller;
 
 import abc.restaurant.Model.Reservation;
+import abc.restaurant.Model.User;
 import abc.restaurant.Services.ReservationService;
 
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -97,41 +100,67 @@ public class ReservationController extends HttpServlet {
     }
 
     private void insertReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String serviceType = request.getParameter("serviceType");
         int userId = Integer.parseInt(request.getParameter("userId"));
-        String message = request.getParameter("message");
         String date = request.getParameter("date");
         String time = request.getParameter("time");
         int numberOfPeople = Integer.parseInt(request.getParameter("numberOfPeople"));
         String status = request.getParameter("status");
+        String source = request.getParameter("source");
 
-        Reservation newReservation = new Reservation();
-        newReservation.setUserId(userId);
-        newReservation.setMessage(message);
-        newReservation.setDate(date);
-        newReservation.setTime(time);
-        newReservation.setNumberOfPeople(numberOfPeople);
-        newReservation.setStatus(status);
+       
+        Reservation newReservation = new Reservation(0, userId, serviceType, date, time, numberOfPeople, status);
+        reservationService.addReservation(newReservation);
+        
+        
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user"); 
+        String userEmail = loggedInUser != null ? loggedInUser.getEmail() : "default@example.com";
+        
+      
+        String emailSubject = "Reservation Confirmation!";
+        String emailBody = generateReservationConfirmationEmailBody(newReservation);
 
+      
         try {
-            reservationService.addReservation(newReservation);
-
-            // Determine where to redirect based on a request parameter
-            String source = request.getParameter("source");
-
-            if ("mainPage".equals(source)) {
-                // Redirect to main page with a success message
-                request.getSession().setAttribute("successMessage", "Your table booking is successful!");
-                response.sendRedirect("mainPage"); // Redirect to the main page
-            } else {
-                // Redirect to reservation list page
-                response.sendRedirect("reservations?action=list");
-            }
-        } catch (Exception e) { // Catch general exceptions
-            request.setAttribute("errorMessage", "Error adding reservation: " + e.getMessage());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
-            dispatcher.forward(request, response);
+            EmailUtil.sendEmail(userEmail, emailSubject, emailBody);
+        } catch (MessagingException e) {
+            e.printStackTrace(); 
+        }
+        
+        
+        if ("addForm".equals(source)) {
+            response.sendRedirect("reservation?action=list");
+        } else {
+            response.sendRedirect("mainPage");
         }
     }
+ 
+    private String generateReservationConfirmationEmailBody(Reservation reservation) {
+        StringBuilder body = new StringBuilder();
+        body.append("<html><body>");
+        body.append("<div style='font-family: Arial, sans-serif; color: #333;'>");
+        body.append("<h1 style='color:#4CAF50;'>Your Reservation is Confirmed!</h1>");
+        body.append("<p style='font-size: 16px;'>Dear ").append(reservation.getUserDetails() != null ? reservation.getUserDetails().getUsername() : "Valued Customer").append(",</p>");
+        body.append("<p style='font-size: 16px;'>Thank you for making a reservation with us. Below are the details of your reservation:</p>");
+        
+        // Reservation Details
+        body.append("<p style='font-size: 16px;'><strong>Reservation Details:</strong></p>");
+        body.append("<p style='font-size: 16px;'>Date: ").append(reservation.getDate()).append("</p>");
+        body.append("<p style='font-size: 16px;'>Time: ").append(reservation.getTime()).append("</p>");
+        body.append("<p style='font-size: 16px;'>Number of People: ").append(reservation.getNumberOfPeople()).append("</p>");
+        
+        // Adding closing remarks
+        body.append("<p style='font-size: 16px;'>We look forward to welcoming you at ABC Restaurant! If you have any questions or need to modify your reservation, please do not hesitate to contact us.</p>");
+        body.append("<p style='font-size: 16px;'>Best regards,</p>");
+        body.append("<p style='font-size: 16px; color: #4CAF50;'><strong>The ABC Restaurant Team</strong></p>");
+        body.append("<p style='font-size: 14px; color: #666;'>This is an automated message. Please do not reply to this email.</p>");
+        body.append("</div>");
+        body.append("</body></html>");
+        
+        return body.toString();
+    }
+    
 
     private void updateReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int reservationId = Integer.parseInt(request.getParameter("id"));

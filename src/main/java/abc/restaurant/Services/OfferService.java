@@ -6,9 +6,6 @@ import abc.restaurant.Model.Offer;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Service class for managing offers.
- */
 public class OfferService {
 
     private static OfferService instance;

@@ -1,8 +1,6 @@
 package abc.restaurant.Model;
 
-/**
- * Model class for Reservation.
- */
+
 public class Reservation {
     private int reservationId;
     private int userId;
@@ -13,16 +11,16 @@ public class Reservation {
     private String status;
 
     
-    // User details for when you retrieve the reservation with user info
+    
     private User userDetails;
     
     
     
-    // Default constructor
+    
     public Reservation() {
     }
 
-    // Parameterized constructor
+   
     public Reservation(int reservationId, int userId, String message, String date, String time, int numberOfPeople, String status) {
         this.reservationId = reservationId;
         this.userId = userId;
@@ -33,7 +31,7 @@ public class Reservation {
         this.status = status;
     }
 
-    // Parameterized constructor
+   
     public Reservation(int reservationId, int userId, String message, String date, String time, String status) {
         this.reservationId = reservationId;
         this.userId = userId;
@@ -42,7 +40,7 @@ public class Reservation {
         this.time = time;
         this.status = status;
     }
-    // Parameterized constructor
+    
     public Reservation(int reservationId, int userId, String serviceType, String date, String status) {
         this.reservationId = reservationId;
         this.userId = userId;
@@ -51,7 +49,7 @@ public class Reservation {
         this.status = status;
     }
     
-    // Parameterized constructor
+    
     public Reservation(int reservationId, int userId, String serviceType,String status) {
         this.reservationId = reservationId;
         this.userId = userId;
@@ -59,13 +57,13 @@ public class Reservation {
         this.status = status;
     }
     
-    // Parameterized constructor
+    
     public Reservation(int reservationId, int userId,String status) {
         this.reservationId = reservationId;
         this.userId = userId;
         this.status = status;
     }
-    // Getters and Setters
+
     public int getReservationId() {
         return reservationId;
     }

@@ -1,8 +1,6 @@
 package abc.restaurant.Model;
 
-/**
- * Model class for Offer.
- */
+
 public class Offer {
     private int offerId;
     private String title;
@@ -10,11 +8,11 @@ public class Offer {
     private int price;
     private String offerImg;
 
-    // Default constructor
+    
     public Offer() {
     }
 
-    // Parameterized constructor
+    
     public Offer(int offerId, String title, String description,int price,String offerImg) {
         this.offerId = offerId;
         this.title = title;
@@ -24,14 +22,14 @@ public class Offer {
     }
     
     
-    // Parameterized constructor
+    
     public Offer(int offerId, String title, String description,String offerImg) {
         this.offerId = offerId;
         this.title = title;
         this.description = description;
         this.offerImg = offerImg;
     }
-    // Parameterized constructor
+  
     public Offer(int offerId, String title,String offerImg) {
         this.offerId = offerId;
         this.title = title;
@@ -44,7 +42,7 @@ public class Offer {
     }
   
  
-    // Getters and Setters
+    
     public int getOfferId() {
         return offerId;
     }

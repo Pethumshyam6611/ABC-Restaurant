@@ -11,43 +11,41 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO class for interacting with the reservations table in the database.
- */
+
 public class ReservationDAO {
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {
         return DBconnectionFactory.getConnection();
     }
 
-    // Add a new reservation
+   
     public void addReservation(Reservation reservation) {
         String query = "INSERT INTO reservations (userid, message, date, time, number_of_people, status) VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
-            connection = getConnection(); // Obtain a connection
-            statement = connection.prepareStatement(query); // Prepare the SQL query
-            statement.setInt(1, reservation.getUserId()); // Set parameters
+            connection = getConnection(); 
+            statement = connection.prepareStatement(query); 
+            statement.setInt(1, reservation.getUserId()); 
             statement.setString(2, reservation.getMessage());
             statement.setString(3, reservation.getDate());
             statement.setString(4, reservation.getTime());
             statement.setInt(5, reservation.getNumberOfPeople());
             statement.setString(6, reservation.getStatus());
-            statement.executeUpdate(); // Execute the query
+            statement.executeUpdate(); 
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace(); // Print the stack trace for debugging
+            e.printStackTrace(); 
         } finally {
             try {
-                if (statement != null) statement.close(); // Close statement
+                if (statement != null) statement.close(); 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    // Retrieve all reservations with user details
+    
     public List<Reservation> getAllReservationsWithUsers() throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
         String query = "SELECT r.reservationid, r.userid, r.message, r.date, r.time, r.number_of_people, r.status, "
@@ -80,7 +78,7 @@ public class ReservationDAO {
     }
 
 
-    // Retrieve a reservation by its ID
+  
     public Reservation getReservationById(int reservationId) {
         String query = "SELECT * FROM reservations WHERE reservationid = ?";
         Connection connection = null;
@@ -111,7 +109,7 @@ public class ReservationDAO {
         return reservation;
     }
 
-    // Update an existing reservation
+    
     public void updateReservation(Reservation reservation) {
         String query = "UPDATE reservations SET userid = ?, message = ?, date = ?, time = ?, number_of_people = ?, status = ? WHERE reservationid = ?";
         Connection connection = null;
@@ -139,7 +137,7 @@ public class ReservationDAO {
         }
     }
 
-    // Delete a reservation
+    
     public void deleteReservation(int reservationId) {
         String query = "DELETE FROM reservations WHERE reservationid = ?";
         Connection connection = null;
@@ -162,7 +160,7 @@ public class ReservationDAO {
     }
 
 
-    // Map the ResultSet to a Reservation object
+    
     private Reservation mapResultSetToReservation(ResultSet rs) throws SQLException {
         int reservationId = rs.getInt("reservationid");
         int userId = rs.getInt("userid");
@@ -175,7 +173,7 @@ public class ReservationDAO {
         return new Reservation(reservationId, userId, message, date, time, numberOfPeople, status);
     }
 
-    // Map the ResultSet to a Reservation object with user details
+ 
     private Reservation mapResultSetToReservationWithUser(ResultSet rs) throws SQLException {
         int reservationId = rs.getInt("reservationid");
         int userId = rs.getInt("userid");

@@ -6,9 +6,7 @@ import abc.restaurant.Model.Menu;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Service class for managing menu items.
- */
+
 public class MenuService {
 
 	private static MenuService instance;

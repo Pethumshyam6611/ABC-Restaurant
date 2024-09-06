@@ -17,7 +17,7 @@ public class UserDAO {
         this.connection = DBconnection.getInstance().getConnection();
     }
 
-    // Create a new user
+    
     public void addUser(User user) throws SQLException {
         String query = "INSERT INTO user (username, password, role, email, phone) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -30,7 +30,7 @@ public class UserDAO {
         }
     }
 
-    // Get a user by ID
+    
     public User getUserById(int userId) throws SQLException {
         String query = "SELECT * FROM user WHERE userid = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

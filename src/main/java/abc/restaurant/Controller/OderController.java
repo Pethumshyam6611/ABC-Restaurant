@@ -5,12 +5,14 @@ import abc.restaurant.Model.User;
 import abc.restaurant.Services.OderService;
 
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -43,9 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Servlet controller for order management operations.
- */
+
 @WebServlet("/oder")
 public class OderController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -125,12 +125,54 @@ public class OderController extends HttpServlet {
         Oder newOder = new Oder(0, foodNamewithQT, userIdp, type, totalPrice, status, datetime);
         oderService.addOder(newOder);
         
-        // Redirect based on the source parameter
+       
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user"); // Assuming user is stored in session
+        String userEmail = loggedInUser != null ? loggedInUser.getEmail() : "default@example.com";
+        
+       
+        String emailSubject = "Thank You for Your Order!";
+        String emailBody = generateOrderConfirmationEmailBody(newOder);
+
+        
+        try {
+            EmailUtil.sendEmail(userEmail, emailSubject, emailBody);
+        } catch (MessagingException e) {
+            e.printStackTrace(); 
+        }
+        
+      
         if ("addForm".equals(source)) {
             response.sendRedirect("oder?action=list");
         } else {
             response.sendRedirect("mainPage");
         }
+    }
+
+ 
+    private String generateOrderConfirmationEmailBody(Oder oder) {
+        StringBuilder body = new StringBuilder();
+        body.append("<html><body>");
+        body.append("<div style='font-family: Arial, sans-serif; color: #333;'>");
+        body.append("<h1 style='color:#4CAF50;'>Thank You for Your Order!</h1>");
+        body.append("<p style='font-size: 16px;'>Dear ").append(oder.getUserDetails() != null ? oder.getUserDetails(). getUsername() : "Valued Customer").append(",</p>");
+        body.append("<p style='font-size: 16px;'>We are thrilled to confirm that we have received your order. Below are the details of your order:</p>");
+        
+       
+        body.append("<p style='font-size: 16px;'><strong>Order Details:</strong></p>");
+        body.append("<p style='font-size: 16px;'>Product Name with Quantity: ").append(oder.getFoodNamewithQT()).append("</p>");
+        body.append("<p style='font-size: 16px;'>Total Price: ").append(String.format("%.2f", oder.getTotalPrice())).append(" Rs.</p>");
+        
+       
+        body.append("<p style='font-size: 16px;'>Thank you for choosing ABC Restaurant! We appreciate your business and look forward to serving you again soon.</p>");
+        body.append("<p style='font-size: 16px;'>If you have any questions or need assistance, please do not hesitate to contact us.</p>");
+        body.append("<p style='font-size: 16px;'>Best regards,</p>");
+        body.append("<p style='font-size: 16px; color: #4CAF50;'><strong>The ABC Restaurant Team</strong></p>");
+        body.append("<p style='font-size: 14px; color: #666;'>This is an automated message. Please do not reply to this email.</p>");
+        body.append("</div>");
+        body.append("</body></html>");
+        
+        return body.toString();
     }
 
     private void updateOder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -223,45 +265,45 @@ public class OderController extends HttpServlet {
 
         try {
             List<Oder> oderList = oderService.getAllOdersWithUsers();
-            Document document = new Document(PageSize.A3); // Set page size to vertical (A3)
+            Document document = new Document(PageSize.A3); 
             PdfWriter.getInstance(document, response.getOutputStream());
             document.open();
 
-            // Add a big header
+            
             Font headerFont = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD);
             Paragraph header = new Paragraph("Annual Sales Report", headerFont);
             header.setAlignment(Element.ALIGN_CENTER);
             document.add(header);
             document.add(new Paragraph(" ")); // Add space below the header
 
-            // Add download date
+           
             Font dateFont = new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD);
             Paragraph dateParagraph = new Paragraph("Date: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()), dateFont);
             dateParagraph.setAlignment(Element.ALIGN_RIGHT);
             document.add(dateParagraph);
-            document.add(new Paragraph(" ")); // Add space below the date
+            document.add(new Paragraph(" "));
 
-            // Calculate total price for all orders and counts
+           
             double pendingTotalPrice = 0.0;
             double acceptedTotalPrice = 0.0;
             int pendingOrderCount = 0;
             int acceptedOrderCount = 0;
 
-            // Create tables for Pending and Accepted Orders
-            PdfPTable pendingOrdersTable = new PdfPTable(9); // 9 columns
-            PdfPTable acceptedOrdersTable = new PdfPTable(9); // 9 columns
+            
+            PdfPTable pendingOrdersTable = new PdfPTable(9); 
+            PdfPTable acceptedOrdersTable = new PdfPTable(9); 
             setTableColumnWidths(pendingOrdersTable, new float[]{1, 2, 1, 1, 1, 1, 2, 2, 2});
             setTableColumnWidths(acceptedOrdersTable, new float[]{1, 2, 1, 1, 1, 1, 2, 2, 2});
             addTableHeader(pendingOrdersTable);
             addTableHeader(acceptedOrdersTable);
 
-            // Add rows to tables and calculate total prices and counts
+            
             pendingTotalPrice = addRows(pendingOrdersTable, oderList, "pending");
             pendingOrderCount = getOrderCount(oderList, "pending");
             acceptedTotalPrice = addRows(acceptedOrdersTable, oderList, "accepted");
             acceptedOrderCount = getOrderCount(oderList, "accepted");
 
-            // Add the total price and order count at the top of the page
+           
             Font totalFont = new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD);
             Paragraph totalParagraph = new Paragraph("Total Price: Rs. " + String.format("%.2f", (pendingTotalPrice + acceptedTotalPrice)), totalFont);
             totalParagraph.setAlignment(Element.ALIGN_RIGHT);
@@ -270,26 +312,26 @@ public class OderController extends HttpServlet {
             Paragraph orderCountParagraph = new Paragraph("Total Orders: " + (pendingOrderCount + acceptedOrderCount), totalFont);
             orderCountParagraph.setAlignment(Element.ALIGN_RIGHT);
             document.add(orderCountParagraph);
-            document.add(new Paragraph(" ")); // Space between total and tables
+            document.add(new Paragraph(" ")); 
 
-            // Add tables to document
+            
             document.add(new Paragraph("Pending Orders", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD)));
-            document.add(new Paragraph(" ")); // Space between header and table
+            document.add(new Paragraph(" ")); 
             document.add(pendingOrdersTable);
 
-            document.add(new Paragraph(" ")); // Space between tables
+            document.add(new Paragraph(" ")); 
 
             document.add(new Paragraph("Accepted Orders", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD)));
-            document.add(new Paragraph(" ")); // Space between header and table
+            document.add(new Paragraph(" ")); 
             document.add(acceptedOrdersTable);
 
-            // Add bar chart
+           
             document.newPage();
             Paragraph chartTitle = new Paragraph("Sales by Date", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD));
             document.add(chartTitle);
-            document.add(new Paragraph(" ")); // Space before chart
+            document.add(new Paragraph(" ")); 
             
-            // Create chart and convert to image
+            
             BufferedImage chartImage = createSalesBarChart(oderList);
             ByteArrayOutputStream chartStream = new ByteArrayOutputStream();
             ImageIO.write(chartImage, "png", chartStream);
@@ -305,32 +347,32 @@ public class OderController extends HttpServlet {
     }
 
     private BufferedImage createSalesBarChart(List<Oder> oderList) {
-        // Group orders by date and calculate total sales per date
+        
         Map<String, Double> salesByDate = new HashMap<>();
         for (Oder oder : oderList) {
-            String date = oder.getDatetime().split(" ")[0]; // Extract date from datetime
+            String date = oder.getDatetime().split(" ")[0]; 
             salesByDate.put(date, salesByDate.getOrDefault(date, 0.0) + oder.getTotalPrice());
         }
 
-        // Create dataset
+        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (Map.Entry<String, Double> entry : salesByDate.entrySet()) {
             dataset.addValue(entry.getValue(), "Sales", entry.getKey());
         }
 
-        // Create chart
+        
         JFreeChart chart = ChartFactory.createBarChart(
-            "Sales by Date", // Chart title
-            "Date", // X-axis label
-            "Total Sales (Rs.)", // Y-axis label
-            dataset, // Dataset
-            PlotOrientation.VERTICAL, // Plot orientation
-            true, // Include legend
-            true, // Tooltips
-            false // URLs
+            "Sales by Date", 
+            "Date", 
+            "Total Sales (Rs.)", 
+            dataset, 
+            PlotOrientation.VERTICAL, 
+            true, 
+            true, 
+            false 
         );
 
-        // Customize chart appearance
+       
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(800, 600));
         return chart.createBufferedImage(800, 600);
@@ -347,7 +389,7 @@ public class OderController extends HttpServlet {
         String[] headers = {"Order ID", "Food Name with Quantity", "User ID", "Type", "Total Price", "Status", "Date & Time", "Username", "Email"};
         Font headerFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
-        // Set header background color to green
+        
         for (String header : headers) {
             PdfPCell cell = new PdfPCell(new Paragraph(header, headerFont));
             cell.setBackgroundColor(BaseColor.GREEN);

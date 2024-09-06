@@ -3,6 +3,7 @@ package abc.restaurant.Controller;
 import abc.restaurant.Model.User;
 import abc.restaurant.Services.UserService;
 
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -75,58 +76,45 @@ public class UserController extends HttpServlet {
 
     private void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String password = request.getParameter("password"); // Should be hashed before saving
         String role = request.getParameter("role");
         String email = request.getParameter("email");
         String phoneStr = request.getParameter("phone");
-        
-        int phone = 0;
-        try {
-            phone = Integer.parseInt(phoneStr);
-        } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "Invalid phone number format.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
 
         try {
+            int phone = Integer.parseInt(phoneStr);
+
             if (userService.isEmailOrPhoneExists(email, phone)) {
-                // Check if the role is Customer and redirect accordingly
-                if ("Customer".equals(role)) {
-                    request.getSession().setAttribute("errorMessage", "Email or phone number already in use.");
-                    response.sendRedirect("mainPage");
-                } else {
-                    request.setAttribute("errorMessage", "Email or phone number already in use.");
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
-                    dispatcher.forward(request, response);
-                }
+                handleDuplicateEntry(request, response, role);
                 return;
             }
 
             User user = new User();
             user.setUsername(username);
-            user.setPassword(password);
+            user.setPassword(password); // Hash password before storing
             user.setRole(role);
             user.setEmail(email);
             user.setPhone(phone);
 
             userService.addUser(user);
 
+            // Send confirmation email with username
+            sendConfirmationEmail(email, username);
+
             if ("Customer".equals(role)) {
                 response.sendRedirect("mainPage");
             } else {
                 response.sendRedirect("user?action=list");
             }
+        } catch (NumberFormatException e) {
+            handleException(request, response, "Invalid phone number format.");
         } catch (SQLException e) {
-            request.setAttribute("errorMessage", "Error adding user: " + e.getMessage());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
-            dispatcher.forward(request, response);
+            handleException(request, response, "Error adding user: " + e.getMessage());
+        } catch (MessagingException e) {
+            handleException(request, response, "Error sending email: " + e.getMessage());
         }
     }
-
-
-
+    
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         if (id != null && !id.trim().isEmpty()) {
@@ -212,6 +200,38 @@ public class UserController extends HttpServlet {
         }
     }
 
-   
+    private void sendConfirmationEmail(String to, String username) throws MessagingException {
+        String subject = "Welcome to Our Service!";
+        
+        // HTML body
+        String body = "<html><body>"
+                + "<div style='font-family: Arial, sans-serif; color: #333;'>"
+                + "<h2 style='color: #4CAF50;'>Welcome, " + username + "!</h2>"
+                + "<p style='font-size: 16px;'>Thank you for joining us at <strong>ABC Restaurant</strong>. We're thrilled to have you on board.</p>"
+                + "<p style='font-size: 16px;'>As a member, you'll enjoy exclusive offers and updates about our latest dishes and events. Stay tuned for exciting news!</p>"
+                + "<p style='font-size: 16px;'>If you have any questions or need assistance, feel free to reach out to our support team at any time.</p>"
+                + "<p style='font-size: 16px;'>Best regards,<br/>The ABC Restaurant Team</p>"
+                + "</div>"
+                + "</body></html>";
+        
+        EmailUtil.sendEmail(to, subject, body);
+    }
+    private void handleException(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
+        request.setAttribute("errorMessage", message);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void handleDuplicateEntry(HttpServletRequest request, HttpServletResponse response, String role) throws ServletException, IOException {
+        if ("Customer".equals(role)) {
+            request.getSession().setAttribute("errorMessage", "Email or phone number already in use.");
+            response.sendRedirect("mainPage");
+        } else {
+            request.setAttribute("errorMessage", "Email or phone number already in use.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/error.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+    
 
 }

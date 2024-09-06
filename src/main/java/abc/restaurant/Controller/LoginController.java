@@ -24,26 +24,27 @@ public class LoginController extends HttpServlet {
         try {
             User user = userService.authenticateUser(username, password);
             if (user != null) {
-                // Authentication successful
-                request.getSession().setAttribute("user", user); // Set user in session
+                
+                request.getSession().setAttribute("user", user);
+                
                 
                 if ("Admin".equals(user.getRole())) {
                     response.sendRedirect("admin-panel");
                 } else if ("Staff".equals(user.getRole())) {
                     response.sendRedirect("staff-panel");
                 } else {
-                    // If the role is neither Admin nor Staff, treat it as an error
+                   
                     request.setAttribute("errorMessage", "Invalid role");
                     request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
                 }
             } else {
-                // Authentication failed
+                
                 request.setAttribute("errorMessage", "Invalid username or password");
                 request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("/error.jsp"); // Redirect to an error page
+            response.sendRedirect("/error.jsp"); 
         }
     }
 
@@ -54,41 +55,41 @@ public class LoginController extends HttpServlet {
 
         switch (path) {
             case "/login":
-                // Serve the login page (for admin/staff)
+                
                 request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
                 break;
             case "/admin-panel":
                 if (user != null && "Admin".equals(user.getRole())) {
                     request.getRequestDispatcher("/WEB-INF/view/AdminPanel.jsp").forward(request, response);
                 } else {
-                    response.sendRedirect("login"); // Redirect to login if not authorized
+                    response.sendRedirect("login"); 
                 }
                 break;
             case "/staff-panel":
                 if (user != null && "Staff".equals(user.getRole())) {
                     request.getRequestDispatcher("/WEB-INF/view/StaffPanel.jsp").forward(request, response);
                 } else {
-                    response.sendRedirect("login"); // Redirect to login if not authorized
+                    response.sendRedirect("login"); 
                 }
                 break;
             case "/logout":
-                // Handle logout
+               
                 if (user != null) {
-                    request.getSession().invalidate(); // Invalidate the session
+                    request.getSession().invalidate();
 
-                    // Check where to redirect after logout
+                   
                     String fromPage = request.getParameter("fromPage");
                     if ("mainPage".equals(fromPage)) {
-                        response.sendRedirect("mainPage"); // Redirect to the main page after logout
+                        response.sendRedirect("mainPage"); 
                     } else {
-                        response.sendRedirect("login"); // Redirect to the login page after logout
+                        response.sendRedirect("login"); 
                     }
                 } else {
-                    response.sendRedirect("login"); // If no user in session, redirect to login
+                    response.sendRedirect("login"); 
                 }
                 break;
             default:
-                response.sendRedirect("error.jsp"); // Redirect to an error page if path is unknown
+                response.sendRedirect("error.jsp"); 
                 break;
         }
     }
